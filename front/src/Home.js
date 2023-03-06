@@ -1,5 +1,6 @@
 import logo from "./logo.svg";
 import "./App.scss";
+import styles from "./Home.module.scss";
 
 function Home() {
   return (

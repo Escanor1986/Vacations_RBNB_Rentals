@@ -2,6 +2,7 @@ const path = require("path");
 const express = require("express");
 const cors = require("cors");
 const app = express();
+const productsRoutes = require("./routes/products.routes");
 const cookieParser = require("cookie-parser");
 const helmet = require("helmet");
 const bodyParser = require("body-parser");
@@ -15,8 +16,8 @@ app.use(
   })
 );
 
-app.use(cookieParser());
-require("./config/auth");
+// app.use(cookieParser());
+// require("./config/auth");
 
 // Connexion à mongo &  express-session
 require("dotenv").config({ path: "./config/.env" });
@@ -58,9 +59,10 @@ app.use((req, res, next) => {
 app.use(bodyParser.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
-app.use("/images", express.static(path.join(__dirname, "images")));
-app.use("/api/auth", userRoutes);
-app.use("/api/sauces", saucesRoutes);
+// app.use("/images", express.static(path.join(__dirname, "images")));
+
+// Routes ....
+app.use("/api/products", productsRoutes);
 
 // Middelware de Gestion des erreurs pour remplacer celui d'express
 if (process.env.NODE_ENV === "development") {

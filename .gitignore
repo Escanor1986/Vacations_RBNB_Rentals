@@ -4,3 +4,4 @@ myCA.key
 myCA.srl
 local.csr
 key.pem
+.env

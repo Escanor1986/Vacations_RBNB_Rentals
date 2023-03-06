@@ -16,7 +16,7 @@ const normalizePort = (val) => {
   }
   return false;
 };
-const port = normalizePort(process.env.PORT || "443");
+const port = normalizePort(process.env.PORT || "3000"); // 443 est le port par défaut pour https
 app.set("port", port);
 
 const errorHandler = (error) => {
@@ -40,20 +40,22 @@ const errorHandler = (error) => {
   }
 };
 
-http
-  .createServer((req, res) => {
-    res.writeHead("301", { Location: `https://${req.headers.host}${req.url}` });
-    res.end();
-  })
-  .listen(80);
+const server = http.createServer(app);
 
-const server = https.createServer(
-  {
-    key: fs.readFileSync(path.join(__dirname, "../ssl/key.pem")),
-    cert: fs.readFileSync(path.join(__dirname, "../ssl/cert.pem")),
-  },
-  app
-);
+// http
+//   .createServer((req, res) => {
+//     res.writeHead("301", { Location: `https://${req.headers.host}${req.url}` });
+//     res.end();
+//   })
+//   .listen(80); // 80 est le port par défaut pour http
+
+// const server = https.createServer(
+//   {
+//     key: fs.readFileSync(path.join(__dirname, "./ssl/myCA.key")),
+//     cert: fs.readFileSync(path.join(__dirname, "./ssl/myCA.pem")),
+//   },
+//   app
+// );
 
 server.on("error", errorHandler);
 
