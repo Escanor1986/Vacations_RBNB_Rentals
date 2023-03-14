@@ -16,7 +16,11 @@ function Header() {
           <i class="fa-solid fa-book-open mr-15"></i>
           <span>A propos</span>
         </button>
-        <button className="btn btn btn-reverse-primary">
+        <button className="mr-5 btn btn btn-reverse-primary">
+          <i class="fa-solid fa-basket-shopping mr-15"></i>
+          <span>Wishlist</span>
+        </button>
+        <button className="btn btn btn-primary">
           <i class="fa-solid fa-right-to-bracket mr-15"></i>
           <span>Connexion</span>
         </button>

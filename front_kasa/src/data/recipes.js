@@ -1,4 +1,4 @@
-const products = [
+export const data = [
   {
     id: "c67ab8a7",
     title: "Appartement cosy",
@@ -579,18 +579,3 @@ const products = [
     tags: ["Louvre", "Marais", "Rivoli"],
   },
 ];
-
-exports.find = async () => {
-  return JSON.parse(JSON.stringify(products));
-};
-
-exports.findById = async (id) => {
-  // if (!Number.isInteger(id)) { // Ne fonctionne pas car des lettres sont présentes dans l'id
-  //   throw new Error("Invalid ID");
-  // }
-  const product = products.find((p) => p.id === id);
-  if (!product) {
-    throw new Error("Product not found");
-  }
-  return product;
-};

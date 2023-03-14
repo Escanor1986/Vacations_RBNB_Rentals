@@ -1,8 +1,25 @@
+import React, { useState } from "react";
 import styles from "./Content.module.scss";
 import TOP_CONTENT from "../assets/images/Top_Content_Img.png";
 import Recipe from "./Recipe";
+import { data } from "../data/recipes";
 
 function Content() {
+  const recipes = data;
+  const [currentPage, setCurrentPage] = useState(1);
+
+  const recipesPerPage = 10;
+  const totalPages = Math.ceil(recipes.length / recipesPerPage);
+
+  const handlePageChange = (pageNumber) => {
+    setCurrentPage(pageNumber);
+  };
+
+  const startIndex = (currentPage - 1) * recipesPerPage;
+  const endIndex = startIndex + recipesPerPage;
+
+  const currentRecipes = recipes.slice(startIndex, endIndex);
+
   return (
     <div className="flex-fill container p-20">
       <div className={`my-40 flex-fill ${styles.mainImageContainer}`}>
@@ -11,19 +28,26 @@ function Content() {
           src={TOP_CONTENT}
           alt="Top Content"
         />
-        <span className={styles.imgTitle}>Chez vous, partout et ailleurs</span>
+        <span className={` d-flex  ${styles.imgTitle}`}>
+          Chez vous, partout et ailleurs
+        </span>
       </div>
       <div className={`card p-20 ${styles.contentCard}`}>
         <div className={styles.grid}>
-          <Recipe />
-          <Recipe />
-          <Recipe />
-          <Recipe />
-          <Recipe />
-          <Recipe />
-          <Recipe />
-          <Recipe />
-          <Recipe />
+          {currentRecipes.map((r) => (
+            <Recipe key={r.id} title={r.title} cover={r.cover} />
+          ))}
+        </div>
+        <div className="pagination">
+          {[...Array(totalPages)].map((_, i) => (
+            <button
+              key={i}
+              className={i + 1 === currentPage ? "active" : ""}
+              onClick={() => handlePageChange(i + 1)}
+            >
+              {i + 1}
+            </button>
+          ))}
         </div>
       </div>
     </div>
@@ -31,38 +55,3 @@ function Content() {
 }
 
 export default Content;
-
-// import styles from "./Content.module.scss";
-// import React, { useState, useEffect } from "react";
-
-// function Content() {
-//   const [products, setProducts] = useState([]);
-
-//   useEffect(() => {
-//     async function fetchData() {
-//       const response = await fetch("http://localhost:3000/api/products/");
-//       const data = await response.json();
-//       setProducts(data);
-//     }
-//     fetchData();
-//   }, []);
-
-//   return (
-//     <div className="flex-fill container p-20">
-//       {products.map((product) => (
-//         <div key={product.id}>
-//           <h2>{product.title}</h2>
-//           <img src={product.cover} alt={product.title} />
-//           <p>{product.description}</p>
-//           <ul>
-//             {product.equipments.map((equipment) => (
-//               <li key={equipment}>{equipment}</li>
-//             ))}
-//           </ul>
-//         </div>
-//       ))}
-//     </div>
-//   );
-// }
-
-// export default Content;
