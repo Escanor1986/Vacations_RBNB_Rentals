@@ -1,5 +1,17 @@
+@mixin xxs {
+  @media (max-width: 500px) {
+    @content;
+  }
+}
+
 @mixin xs {
   @media (max-width: 576px) {
+    @content;
+  }
+}
+
+@mixin headerMenu {
+  @media (max-width: 960px) {
     @content;
   }
 }

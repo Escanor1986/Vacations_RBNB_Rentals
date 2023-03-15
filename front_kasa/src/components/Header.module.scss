@@ -1,10 +1,32 @@
+@use "../assets/styles/mixins" as mixin;
+
 .header {
-  padding: 10px 66px 20px;
+  position: relative;
+  padding: 10px 20px;
+  height: 80px;
   background-color: white;
-  // box-shadow: var(--box-shadow-nav);
-  color: var(--main-text-color);
+  box-shadow: var(--box-shadow-nav);
+  color: var(--primary);
   img {
-    width: 210px;
+    width: 200px;
     height: 68px;
+  }
+}
+
+.headerList {
+  @include mixin.headerMenu {
+    display: none;
+  }
+}
+
+.headerXs {
+  display: none !important;
+  cursor: pointer;
+  transition: opacity 0.2s;
+  &:hover {
+    opacity: 0.8;
+  }
+  @include mixin.headerMenu {
+    display: block !important;
   }
 }

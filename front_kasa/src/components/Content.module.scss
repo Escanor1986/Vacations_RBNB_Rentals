@@ -73,6 +73,16 @@
   animation-delay: 0.3s;
   animation-fill-mode: forwards;
 
+  @media (max-width: 500px) {
+    font-size: 20px;
+    line-height: 1.2;
+    max-width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+
   @media (min-width: 768px) {
     font-size: 36px;
   }
@@ -99,5 +109,31 @@
   to {
     transform: translate(-50%, -50%);
     opacity: 1;
+  }
+}
+
+.pageButton {
+  -webkit-border-radius: 28;
+  -moz-border-radius: 28;
+  border-radius: 28px;
+  -webkit-box-shadow: 0px 1px 3px #666666;
+  -moz-box-shadow: 0px 1px 3px #666666;
+  box-shadow: 0px 1px 3px #666666;
+  color: #ffffff;
+  font-size: 20px;
+  background: #ff6060;
+  margin: 0 10px;
+  padding: 10px 20px 10px 20px;
+  border: solid #ff6060 2px;
+  text-decoration: none;
+  cursor: pointer;
+  &:hover {
+    background: #ff6060;
+    background-image: -webkit-linear-gradient(top, #ff6060, #f57d7d);
+    background-image: -moz-linear-gradient(top, #ff6060, #f57d7d);
+    background-image: -ms-linear-gradient(top, #ff6060, #f57d7d);
+    background-image: -o-linear-gradient(top, #ff6060, #f57d7d);
+    background-image: linear-gradient(to bottom, #ff6060, #f57d7d);
+    text-decoration: none;
   }
 }
