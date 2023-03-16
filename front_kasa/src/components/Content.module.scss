@@ -1,32 +1,5 @@
 @use "../assets/styles/mixins" as mixin;
 
-.grid {
-  display: grid;
-  place-content: center;
-  grid-template-columns: repeat(3, 350px);
-  grid-auto-columns: repeat(3, 350px);
-  gap: 20px;
-  @include mixin.lg-lt {
-    grid-template-columns: repeat(2, 350px);
-    grid-auto-columns: repeat(2, 350px);
-  }
-  @include mixin.md-lt {
-    grid-template-columns: 350px;
-    grid-auto-columns: 350px;
-  }
-  @include mixin.xs {
-    grid-template-columns: 1fr;
-    grid-auto-columns: 1fr;
-  }
-}
-
-.contentCard {
-  max-width: 1240px;
-  width: 100%;
-  // max-height: 829px;
-  background-color: #f7f7f7;
-}
-
 .mainImageContainer {
   max-width: 100%;
   height: auto;
@@ -109,6 +82,47 @@
   to {
     transform: translate(-50%, -50%);
     opacity: 1;
+  }
+}
+
+.grid {
+  display: grid;
+  place-content: center;
+  grid-template-columns: repeat(3, 350px);
+  grid-auto-columns: repeat(3, 350px);
+  gap: 20px;
+  @include mixin.lg-lt {
+    grid-template-columns: repeat(2, 350px);
+    grid-auto-columns: repeat(2, 350px);
+  }
+  @include mixin.md-lt {
+    grid-template-columns: 350px;
+    grid-auto-columns: 350px;
+  }
+  @include mixin.xs {
+    grid-template-columns: 1fr;
+    grid-auto-columns: 1fr;
+  }
+}
+
+.contentCard {
+  max-width: 1240px;
+  width: 100%;
+  // max-height: 829px;
+  background-color: #f7f7f7;
+}
+
+.searchBar {
+  padding: 10px 15px;
+  border: 2px solid var(--primary);
+  border-radius: 20px;
+  input {
+    background-color: var(--gray-2);
+    color: var(--primary);
+    font-weight: 500;
+    font-size: 16px;
+    outline: 0;
+    border: 0;
   }
 }
 

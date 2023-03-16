@@ -4,21 +4,14 @@ import TOP_CONTENT from "../assets/images/Top_Content_Img.png";
 import Recipe from "./Recipe";
 import { data } from "../data/recipes";
 
-function Content() {
+export default function Content() {
   const recipes = data;
-  const [currentPage, setCurrentPage] = useState(1);
+  const [filter, setFilter] = useState("");
 
-  const recipesPerPage = 6;
-  const totalPages = Math.ceil(recipes.length / recipesPerPage);
-
-  const handlePageChange = (pageNumber) => {
-    setCurrentPage(pageNumber);
-  };
-
-  const startIndex = (currentPage - 1) * recipesPerPage;
-  const endIndex = startIndex + recipesPerPage;
-
-  const currentRecipes = recipes.slice(startIndex, endIndex);
+  function handleInput(e) {
+    const filter = e.target.value;
+    setFilter(filter.trim().toLowerCase()); // ici la méthode "trim()" permet de retirer les espaces vide dans la chaîne de caractère
+  }
 
   return (
     <div className="flex-fill container p-20">
@@ -32,45 +25,28 @@ function Content() {
           Chez vous, partout et ailleurs
         </span>
       </div>
-      <div className={`card p-20 ${styles.contentCard}`}>
+      <div className={`card d-flex flex-column p-20 ${styles.contentCard}`}>
+        {/* Début de la barre de recherche textuelle */}
+        <div
+          className={`d-flex flex-row justify-content-center align-item-center my-30 ${styles.searchBar}`}
+        >
+          <i className="fa-solid fa-magnifying-glass mr-15"></i>
+          <input
+            onInput={handleInput}
+            className="flex-fill"
+            type="text"
+            placeholder="Rechercher"
+          />
+        </div>
+        {/* Fin de la barre de recherche textuelle */}
         <div className={styles.grid}>
-          {currentRecipes.map((r) => (
-            <Recipe key={r.id} title={r.title} cover={r.cover} />
-          ))}
+          {recipes
+            .filter((r) => r.title.toLowerCase().includes(filter)) // Méthodes pour la barre de recherche
+            .map((r) => (
+              <Recipe key={r.id} title={r.title} cover={r.cover} />
+            ))}
         </div>
-
-        {/* Début de la pagination */}
-
-        <div className="pagination">
-          {[...Array(totalPages)].map((_, i) => (
-            <button
-              key={i}
-              className={` ${styles.pageButton} ${
-                i + 1 === currentPage ? "active" : ""
-              }`}
-              onClick={() => handlePageChange(i + 1)}
-            >
-              {i + 1}
-            </button>
-          ))}
-        </div>
-
-        {/* Fin de la pagination */}
       </div>
     </div>
   );
 }
-
-export default Content;
-
-/* On utilise le hook useState pour stocker le numéro de page actif (currentPage). 
-La constante recipesPerPage indique le nombre d'éléments à afficher par page et la constante 
-totalPages est calculée à partir de la longueur du tableau recipes et du nombre d'éléments par page.
-La fonction handlePageChange est appelée lorsqu'un bouton de pagination est cliqué et 
-met à jour le numéro de page actif.
-
-Les constantes startIndex et endIndex calculent les index de début et de fin de la tranche 
-à afficher dans le tableau recipes. La constante currentRecipes est un tableau contenant les éléments à afficher pour la page actuelle.
-Enfin, la pagination est générée à l'aide d'une boucle map sur un tableau de la même longueur 
-que le nombre total de pages. Chaque bouton de pagination appelle la fonction handlePageChange
-avec le numéro de page correspondant. Le bouton correspondant à la page actuelle est mis en surbrillance avec la classe "active". */
