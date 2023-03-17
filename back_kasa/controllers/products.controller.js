@@ -21,19 +21,19 @@ exports.getAllProducts = async (req, res, next) => {
       const mappedProducts = products.map((product) => ({
         id: product._id,
         title: product.title,
-        cover: product.imageUrl.startsWith("http")
+        cover: product.imageUrl.startsWith("https")
           ? product.imageUrl // si l'URL est déjà complète, on la garde telle quelle
           : `${process.env.BASE_URL}${product.imageUrl}`, // sinon on construit l'URL complète en concaténant
         pictures: product.pictures.map(
           (picture) =>
-            picture.startsWith("http")
+            picture.startsWith("https")
               ? picture // si l'URL est déjà complète, on la garde telle quelle
               : `${process.env.BASE_URL}${picture}` // sinon on construit l'URL complète en concaténant
         ),
         description: product.description,
         host: {
           name: product.host.name,
-          picture: product.host.picture.startsWith("http")
+          picture: product.host.picture.startsWith("https")
             ? product.host.picture // si l'URL est déjà complète, on la garde telle quelle
             : `${process.env.BASE_URL}${product.host.picture}`, // sinon on construit l'URL complète en concaténant
         },
@@ -89,7 +89,7 @@ exports.getOneProduct = async (req, res, next) => {
       location: product.location,
       equipments: product.equipments,
       tags: product.tags,
-      imageUrl: product.imageUrl.startsWith("http")
+      imageUrl: product.imageUrl.startsWith("https")
         ? product.imageUrl // si l'URL est déjà complète, on la garde telle quelle
         : `${process.env.BASE_URL}${product.imageUrl}`, // sinon on construit l'URL complète en concaténant
     });
