@@ -16,7 +16,7 @@ const normalizePort = (val) => {
   }
   return false;
 };
-const port = normalizePort(process.env.PORT || "3000"); // 443 est le port par défaut pour https
+const port = normalizePort(process.env.PORT || "4000"); // 443 est le port par défaut pour https
 app.set("port", port);
 
 const errorHandler = (error) => {

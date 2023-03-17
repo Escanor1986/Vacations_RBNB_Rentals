@@ -3,7 +3,7 @@ const express = require("express");
 const cors = require("cors");
 const app = express();
 const productsRoutes = require("./routes/products.routes");
-const cookieParser = require("cookie-parser");
+// const cookieParser = require("cookie-parser");
 const helmet = require("helmet");
 const bodyParser = require("body-parser");
 

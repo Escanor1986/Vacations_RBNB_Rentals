@@ -1,0 +1,7 @@
+node_modules
+local.key
+myCA.key
+myCA.srl
+local.csr
+key.pem
+.env

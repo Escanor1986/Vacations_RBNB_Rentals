@@ -8,35 +8,44 @@ const mongoose = require("mongoose");
 
 exports.getAllProducts = async (req, res, next) => {
   try {
-    // Récupère le numéro de la page demandée, ou la première page par défaut
-    const page = +req.query.page || 1;
-    // Nombre d'éléments par page
-    const perPage = 10;
-    // Clé de cache pour cette page
-    const cacheKey = `products_${page}`;
+    // Clé de cache pour les produits
+    const cacheKey = `products`;
 
     // Vérifie si les produits sont en cache
     let cachedData = cache.get(cacheKey);
     if (!cachedData) {
       // Si les produits ne sont pas en cache, les récupérer depuis la base de données
-      const totalItems = await Product.find().countDocuments();
-      const products = await Product.find()
-        .skip((page - 1) * perPage)
-        .limit(perPage);
+      const products = await Product.find();
 
-      // Mappe les produits en ajoutant l'URL de l'image
+      // Mappe les produits en ajoutant les propriétés nécessaires
       const mappedProducts = products.map((product) => ({
-        ...product._doc,
-        imageUrl: product.imageUrl.startsWith("http")
+        id: product._id,
+        title: product.title,
+        cover: product.imageUrl.startsWith("http")
           ? product.imageUrl // si l'URL est déjà complète, on la garde telle quelle
-          : `${process.env.BASE_URL}${product.imageUrl}`, // sinon on construit l'URL complète  en concaténant
+          : `${process.env.BASE_URL}${product.imageUrl}`, // sinon on construit l'URL complète en concaténant
+        pictures: product.pictures.map(
+          (picture) =>
+            picture.startsWith("http")
+              ? picture // si l'URL est déjà complète, on la garde telle quelle
+              : `${process.env.BASE_URL}${picture}` // sinon on construit l'URL complète en concaténant
+        ),
+        description: product.description,
+        host: {
+          name: product.host.name,
+          picture: product.host.picture.startsWith("http")
+            ? product.host.picture // si l'URL est déjà complète, on la garde telle quelle
+            : `${process.env.BASE_URL}${product.host.picture}`, // sinon on construit l'URL complète en concaténant
+        },
+        rating: product.rating.toString(),
+        location: product.location,
+        equipments: product.equipments,
+        tags: product.tags,
       }));
 
-      // Mettre les produits en cache avec le nombre total d'éléments et le numéro de page actuel
+      // Mettre les produits en cache
       cachedData = {
         products: mappedProducts,
-        totalItems: totalItems,
-        currentPage: page,
       };
       cache.put(cacheKey, cachedData);
     }
@@ -67,15 +76,24 @@ exports.getOneProduct = async (req, res, next) => {
     }
     // Utilisation de la méthode freeze() pour verrouiller l'objet 'product' et empêcher les modification accidentelles
     const safeProduct = Object.freeze({
-      ...product,
+      id: product._id,
+      title: product.title,
+      cover: product.cover,
+      pictures: product.pictures,
+      description: product.description,
+      host: {
+        name: product.host.name,
+        picture: product.host.picture,
+      },
+      rating: product.rating,
+      location: product.location,
+      equipments: product.equipments,
+      tags: product.tags,
       imageUrl: product.imageUrl.startsWith("http")
         ? product.imageUrl // si l'URL est déjà complète, on la garde telle quelle
         : `${process.env.BASE_URL}${product.imageUrl}`, // sinon on construit l'URL complète en concaténant
     });
 
-    // Utilisation de 'delete' pour supprimer la propriété _id de l'objet renvoyé par la base de données pour des raisons de sécurité.
-    // On ne supprime l'id de l'objet en lui-même ...
-    delete safeProduct._id;
     res.status(200).json(safeProduct);
   } catch (err) {
     console.error(err);
