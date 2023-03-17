@@ -1,7 +1,7 @@
 import { useState } from "react";
-import styles from "./Recipe.module.scss";
+import styles from "./Rental.module.scss";
 
-function Recipe({ id, title, cover }) {
+function Rental({ id, title, cover }) {
   const [liked, setLiked] = useState(false);
 
   function handleClick() {
@@ -9,11 +9,11 @@ function Recipe({ id, title, cover }) {
   }
 
   return (
-    <div onClick={handleClick} className={styles.recipe}>
+    <div onClick={handleClick} className={styles.rental}>
       <div className={styles.imageContainer}>
-        <img src={cover} alt="recipe" />
+        <img src={cover} alt="rental" />
         <div
-          className={`${styles.recipeTitle} d-flex flex-row justify-content-between align-items-center`}
+          className={`${styles.rentalTitle} d-flex flex-row justify-content-between align-items-center`}
         >
           <h3 className="mr-15">{title}</h3>
           <i
@@ -25,4 +25,4 @@ function Recipe({ id, title, cover }) {
   );
 }
 
-export default Recipe;
+export default Rental;

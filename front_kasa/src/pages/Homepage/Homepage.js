@@ -1,11 +1,11 @@
 import React, { useState } from "react";
-import styles from "./Content.module.scss";
-import TOP_CONTENT from "../assets/images/Top_Content_Img.png";
-import Recipe from "./Recipe";
-import { data } from "../data/recipes";
+import styles from "./Homepage.module.scss";
+import TOP_CONTENT from "../../assets/images/Top_Content_Img.png";
+import Rental from "./components/Rental/Rental";
+import { data } from "../../data/rentals";
 
-export default function Content() {
-  const recipes = data;
+export default function Homepage() {
+  const rentals = data;
   const [filter, setFilter] = useState("");
 
   function handleInput(e) {
@@ -40,10 +40,10 @@ export default function Content() {
         </div>
         {/* Fin de la barre de recherche textuelle */}
         <div className={styles.grid}>
-          {recipes
+          {rentals
             .filter((r) => r.title.toLowerCase().includes(filter)) // Méthodes pour la barre de recherche
             .map((r) => (
-              <Recipe key={r.id} title={r.title} cover={r.cover} />
+              <Rental key={r.id} title={r.title} cover={r.cover} />
             ))}
         </div>
       </div>

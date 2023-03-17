@@ -1,4 +1,4 @@
-.recipe {
+.rental {
   border-radius: 20px;
   height: 330px;
   color: var(--gray-3);
@@ -10,7 +10,7 @@
     img {
       transform: scale(1.1);
     }
-    .recipeTitle {
+    .rentalTitle {
       color: var(--primary);
     }
   }
@@ -36,7 +36,7 @@
     opacity: 0.8;
     object-fit: cover;
   }
-  .recipeTitle {
+  .rentalTitle {
     position: absolute;
     bottom: 0;
     left: 0;
