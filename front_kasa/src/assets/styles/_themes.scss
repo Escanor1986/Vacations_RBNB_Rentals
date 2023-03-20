@@ -43,6 +43,9 @@ $button-opacity: 0; // Opacité initiale des boutons
   &:nth-child(4) {
     animation-delay: 0.4s;
   }
+  &:nth-child(5) {
+    animation-delay: 0.5s;
+  }
 }
 
 .btn-primary {
@@ -51,7 +54,7 @@ $button-opacity: 0; // Opacité initiale des boutons
   border: 2px solid var(--primary);
   font-style: normal;
   font-weight: 500;
-  font-size: 20px;
+  font-size: 16px;
 }
 
 .btn-reverse-primary {
@@ -60,7 +63,7 @@ $button-opacity: 0; // Opacité initiale des boutons
   background-color: white;
   font-style: normal;
   font-weight: 500;
-  font-size: 20px;
+  font-size: 16px;
 }
 
 .card {
@@ -70,4 +73,23 @@ $button-opacity: 0; // Opacité initiale des boutons
 
 .text-primary {
   color: var(--primary);
+}
+
+label {
+  font-size: 14px;
+  font-weight: 500;
+  margin-bottom: 3px;
+}
+
+input {
+  padding: 10px 15px;
+  border: 2px solid var(--gray-2);
+  border-radius: 20px;
+}
+
+.form-error {
+  margin: 0;
+  color: var(--red-1);
+  font-weight: 500;
+  font-size: 12px;
 }

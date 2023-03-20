@@ -1,0 +1,13 @@
+.searchBar {
+  padding: 10px 15px;
+  border: 2px solid var(--primary);
+  border-radius: 20px;
+  input {
+    background-color: var(--gray-2);
+    color: var(--primary);
+    font-weight: 500;
+    font-size: 16px;
+    outline: 0;
+    border: 0;
+  }
+}

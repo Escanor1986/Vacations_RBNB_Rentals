@@ -11,7 +11,7 @@
 }
 
 @mixin headerMenu {
-  @media (max-width: 960px) {
+  @media (max-width: 1025px) {
     @content;
   }
 }

@@ -2,7 +2,7 @@
 
 .header {
   position: relative;
-  padding: 10px 20px;
+  padding: 50px 20px;
   height: 80px;
   background-color: white;
   box-shadow: var(--box-shadow-nav);
@@ -10,6 +10,10 @@
   img {
     width: 200px;
     height: 68px;
+    cursor: pointer;
+    &:hover {
+      opacity: 0.8;
+    }
   }
 }
 
@@ -22,6 +26,7 @@
 .headerXs {
   display: none !important;
   cursor: pointer;
+  font-size: 30px;
   transition: opacity 0.2s;
   &:hover {
     opacity: 0.8;

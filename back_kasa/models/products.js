@@ -2,6 +2,7 @@ const products = [
   {
     id: "c67ab8a7",
     title: "Appartement cosy",
+    liked: false,
     cover:
       "https://s3-eu-west-1.amazonaws.com/course.oc-static.com/projects/front-end-kasa-project/accommodation-20-1.jpg",
     pictures: [
@@ -32,6 +33,7 @@ const products = [
   {
     id: "b9123946",
     title: "Magnifique appartement proche Canal Saint Martin",
+    liked: false,
     cover:
       "https://s3-eu-west-1.amazonaws.com/course.oc-static.com/projects/front-end-kasa-project/accommodation-1-1.jpg",
     pictures: [
@@ -64,6 +66,7 @@ const products = [
   {
     id: "46d188c5",
     title: "Studio de charme - Buttes Chaumont",
+    liked: false,
     cover:
       "https://s3-eu-west-1.amazonaws.com/course.oc-static.com/projects/front-end-kasa-project/accommodation-2-1.jpg",
     pictures: [
@@ -87,6 +90,7 @@ const products = [
   {
     id: "7af00cd6",
     title: "Nid douillet au coeur du 11ème",
+    liked: false,
     cover:
       "https://s3-eu-west-1.amazonaws.com/course.oc-static.com/projects/front-end-kasa-project/accommodation-3-1.jpg",
     pictures: [
@@ -116,6 +120,7 @@ const products = [
   {
     id: "0979876d",
     title: "Appartement de Standing - 10e",
+    liked: false,
     cover:
       "https://s3-eu-west-1.amazonaws.com/course.oc-static.com/projects/front-end-kasa-project/accommodation-4-1.jpg",
     pictures: [
@@ -147,6 +152,7 @@ const products = [
   {
     id: "f72a452f",
     title: "Studio d'artiste",
+    liked: false,
     cover:
       "https://s3-eu-west-1.amazonaws.com/course.oc-static.com/projects/front-end-kasa-project/accommodation-5-1.jpg",
     pictures: [
@@ -171,6 +177,7 @@ const products = [
   {
     id: "b4c67936",
     title: "Cheap - Studio 18ème",
+    liked: false,
     cover:
       "https://s3-eu-west-1.amazonaws.com/course.oc-static.com/projects/front-end-kasa-project/accommodation-6-1.jpg",
     pictures: [
@@ -201,6 +208,7 @@ const products = [
   {
     id: "bc6f7112",
     title: "Superbe appartement proche Tour Eiffel",
+    liked: false,
     cover:
       "https://s3-eu-west-1.amazonaws.com/course.oc-static.com/projects/front-end-kasa-project/accommodation-7-1.jpg",
     pictures: [
@@ -233,6 +241,7 @@ const products = [
   {
     id: "cb2f9222",
     title: "Suite familiale",
+    liked: false,
     cover:
       "https://s3-eu-west-1.amazonaws.com/course.oc-static.com/projects/front-end-kasa-project/accommodation-8-1.jpg",
     pictures: [
@@ -263,6 +272,7 @@ const products = [
   {
     id: "d60ca600",
     title: "Appartement moderne sur parc",
+    liked: false,
     cover:
       "https://s3-eu-west-1.amazonaws.com/course.oc-static.com/projects/front-end-kasa-project/accommodation-9-1.jpg",
     pictures: [
@@ -293,6 +303,7 @@ const products = [
   {
     id: "2cf259e1",
     title: "Charmant Studio Marais",
+    liked: false,
     cover:
       "https://s3-eu-west-1.amazonaws.com/course.oc-static.com/projects/front-end-kasa-project/accommodation-10-1.jpg",
     pictures: [
@@ -316,6 +327,7 @@ const products = [
   {
     id: "5323c29b",
     title: "Studio fonctionnel République",
+    liked: false,
     cover:
       "https://s3-eu-west-1.amazonaws.com/course.oc-static.com/projects/front-end-kasa-project/accommodation-11-3.jpg",
     pictures: [
@@ -346,6 +358,7 @@ const products = [
   {
     id: "af6d2d48",
     title: "Bungalow dans la forêt",
+    liked: false,
     cover:
       "https://s3-eu-west-1.amazonaws.com/course.oc-static.com/projects/front-end-kasa-project/accommodation-12-1.jpg",
     pictures: [
@@ -376,6 +389,7 @@ const products = [
   {
     id: "7cbb378e",
     title: "Grande Maison proche banlieue",
+    liked: false,
     cover:
       "https://s3-eu-west-1.amazonaws.com/course.oc-static.com/projects/front-end-kasa-project/accommodation-13-2.jpg",
     pictures: [
@@ -409,6 +423,7 @@ const products = [
   {
     id: "ba55a0cc",
     title: "Maison T5 - Le Vésinet",
+    liked: false,
     cover:
       "https://s3-eu-west-1.amazonaws.com/course.oc-static.com/projects/front-end-kasa-project/accommodation-14-1.jpg",
     pictures: [
@@ -444,6 +459,7 @@ const products = [
   {
     id: "1e181317",
     title: "Loft de Luxe à la Défense",
+    liked: false,
     cover:
       "https://s3-eu-west-1.amazonaws.com/course.oc-static.com/projects/front-end-kasa-project/accommodation-15-1.jpg",
     pictures: [
@@ -476,6 +492,7 @@ const products = [
   {
     id: "1e180563",
     title: "Charmant apt aux portes de Paris",
+    liked: false,
     cover:
       "https://s3-eu-west-1.amazonaws.com/course.oc-static.com/projects/front-end-kasa-project/accommodation-16-1.jpg",
     pictures: [
@@ -507,6 +524,7 @@ const products = [
   {
     id: "2139a317",
     title: "Cheap - Chambre Paris 20",
+    liked: false,
     cover:
       "https://s3-eu-west-1.amazonaws.com/course.oc-static.com/projects/front-end-kasa-project/accommodation-17-1.jpg",
     pictures: [
@@ -527,6 +545,7 @@ const products = [
   {
     id: "6ff132c6",
     title: "Charmant studio",
+    liked: false,
     cover:
       "https://s3-eu-west-1.amazonaws.com/course.oc-static.com/projects/front-end-kasa-project/accommodation-18-1.jpg",
     pictures: [
@@ -555,6 +574,7 @@ const products = [
   {
     id: "cb02d69b",
     title: "Magnifique appartement Rivoli",
+    liked: false,
     cover:
       "https://s3-eu-west-1.amazonaws.com/course.oc-static.com/projects/front-end-kasa-project/accommodation-19-1.jpg",
     pictures: [
@@ -580,17 +600,27 @@ const products = [
   },
 ];
 
+const productById = {};
+for (const product of products) {
+  productById[product.id] = product;
+}
+
 exports.find = async () => {
-  return JSON.parse(JSON.stringify(products));
+  return products;
 };
 
 exports.findById = async (id) => {
-  // if (!Number.isInteger(id)) { // Ne fonctionne pas car des lettres sont présentes dans l'id
-  //   throw new Error("Invalid ID");
-  // }
-  const product = products.find((p) => p.id === id);
+  return productById[id];
+};
+
+exports.likeProduct = async (id) => {
+  const product = this.getProductById(id);
+
   if (!product) {
-    throw new Error("Product not found");
+    throw new Error("Product not found!");
   }
+
+  product.liked = !product.liked;
+
   return product;
 };
