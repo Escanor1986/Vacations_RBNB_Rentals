@@ -10,7 +10,9 @@ function Search({ setFilter }) {
     <div
       className={`d-flex flex-row justify-content-center align-item-center my-30 ${styles.searchBar}`}
     >
-      <i className="fa-solid fa-magnifying-glass mr-15"></i>
+      <i
+        className={`fa-solid fa-magnifying-glass mr-15 ${styles.searchSymbol}`}
+      ></i>
       <input
         onInput={handleInput}
         className="flex-fill"

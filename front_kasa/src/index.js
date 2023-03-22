@@ -1,15 +1,16 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
 import "./assets/styles/index.scss";
-import App from "./App";
-import { ApiContext } from "./context/ApiContext";
 import reportWebVitals from "./reportWebVitals";
+import { ApiContext } from "./context/ApiContext";
+import { RouterProvider } from "react-router-dom";
+import { router } from "./Router";
 
 const root = ReactDOM.createRoot(document.getElementById("root")); // root que l'on retrouve dans la div "root" du html
 root.render(
   <React.StrictMode>
     <ApiContext.Provider value="http://localhost:4000/api/products/">
-      <App />
+      <RouterProvider router={router}></RouterProvider>
     </ApiContext.Provider>
   </React.StrictMode>
 );

@@ -6,23 +6,52 @@ import Loading from "../../components/Loading/Loading";
 import Search from "./components/Search/Search";
 import { ApiContext } from "../../context/ApiContext";
 import { useFetchData } from "../../hooks";
+import { NavLink } from "react-router-dom";
 // import { data } from "../../data/rentals"; *********** A garder si besoin de montrer comme demandé dans le projet
 
 export default function Homepage() {
   // const rentals = data; *********** A garder si besoin de montrer comme demandé dans le projet
   const [filter, setFilter] = useState("");
   const BASE_URL_API = useContext(ApiContext);
+  const [isHovered, setIsHovered] = useState(false);
   const [[rentals, setRentals, isLoading]] = useFetchData(BASE_URL_API); // récupération du fetch depuis le HOOKS
 
   // fonction pour la mise à jour du like sur les cards
-  function updateRental(updatedRental) {
-    setRentals(
-      rentals.map((r) => (r.id === updatedRental.id ? updatedRental : r))
-    );
+  async function updateRental(updatedRental) {
+    try {
+      const response = await fetch(
+        `${BASE_URL_API}/rentals/${updatedRental.id}/like`,
+        {
+          method: "PATCH",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(updatedRental),
+        }
+      );
+      if (response.ok) {
+        const updatedRental = await response.json();
+        setRentals(
+          rentals.map((r) => (r.id === updatedRental.id ? updatedRental : r))
+        );
+        console.log('"Liked" mis à jour !'); // le serveur répond également avec succès
+      }
+    } catch (e) {
+      console.log("Erreur");
+    }
   }
 
-  function deleteRental(id) {
-    setRentals(rentals.filter((r) => r.id !== id));
+  async function deleteRental(id) {
+    try {
+      const response = await fetch(`${BASE_URL_API}/${id}`, {
+        method: "DELETE",
+      });
+      if (response.ok) {
+        setRentals(rentals.filter((r) => r.id !== id));
+      }
+    } catch (e) {
+      console.log("Erreur lors de la suppression de la location !");
+    }
   }
 
   return (
@@ -46,14 +75,29 @@ export default function Homepage() {
         ) : (
           <div className={styles.grid}>
             {rentals
-              .filter((r) => r.title.toLowerCase().includes(filter)) // paramétrage de la barre de recherche
+              .filter((r) => r.title.toLowerCase().includes(filter))
               .map((r) => (
-                <Rental
+                <div
                   key={r.id}
-                  rental={r}
-                  deleteRental={deleteRental}
-                  toggleLikedRental={updateRental}
-                />
+                  className={styles.rentalContainer}
+                  onMouseEnter={() => setIsHovered(true)}
+                  onMouseLeave={() => setIsHovered(false)}
+                >
+                  <div className={styles.rentalWrapper}>
+                    <Rental
+                      rental={r}
+                      deleteRental={deleteRental}
+                      updateRental={updateRental}
+                    />
+                  </div>
+                  {isHovered && (
+                    <div className={styles.link}>
+                      <NavLink to={`/fiche/${r.id}`} className={styles.link}>
+                        <i className="fa-solid fa-eye fa-beat-fade"></i>
+                      </NavLink>
+                    </div>
+                  )}
+                </div>
               ))}
           </div>
         )}

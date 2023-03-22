@@ -1,18 +1,19 @@
-import { useState } from "react";
 import Footer from "./components/Footer/Footer";
 import Header from "./components/Header/Header";
-import Homepage from "./pages/Homepage/Homepage";
-import Admin from "./pages/Admin/Admin";
 import styles from "./App.module.scss";
+import { Outlet } from "react-router-dom";
+import { Suspense } from "react";
 
 function App() {
-  const [page, setPage] = useState("homepage");
-
   return (
     <div className={`d-flex flex-column ${styles.appContainer}`}>
-      <Header setPage={setPage} />
-      {page === "homepage" && <Homepage />}
-      {page === "admin" && <Admin />}
+      <Header />
+      {/* On intègre le Suspense dans une div pour éviter le jump du footer lors du reload */}
+      <div className="flex-fill d-flex flex-column">
+        <Suspense>
+          <Outlet />
+        </Suspense>
+      </div>
       <Footer />
     </div>
   );

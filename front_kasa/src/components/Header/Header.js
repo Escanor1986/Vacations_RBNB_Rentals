@@ -2,39 +2,49 @@ import styles from "./Header.module.scss";
 import LOGO from "../../assets/images/LOGO.png";
 import { useState } from "react";
 import HeaderMenu from "./components/HeaderMenu/HeaderMenu";
+import { NavLink } from "react-router-dom";
 
-function Header({ setPage }) {
+function Header() {
   const [showMenu, setShowMenu] = useState(false);
 
   return (
     <header className={`${styles.header} d-flex flex-row align-items-center`}>
       <div className="flex-fill">
-        <img onClick={() => setPage("homepage")} src={LOGO} alt="Logo Kasa" />
+        <NavLink to="/">
+          <img src={LOGO} alt="Logo Kasa" />
+        </NavLink>
       </div>
-      <ul className={styles.headerList}>
-        <button className="mr-5 btn btn-reverse-primary">
-          <i className="fa-solid fa-house mr-15"></i>
-          <span>Accueil</span>
-        </button>
-        <button className="mr-5 btn btn btn-reverse-primary">
-          <i className="fa-solid fa-book-open mr-15"></i>
-          <span>A propos</span>
-        </button>
-        <button className="mr-5 btn btn btn-reverse-primary">
-          <i className="fa-solid fa-heart mr-15"></i>
-          <span>Wishlist</span>
-        </button>
-        <button
-          onClick={() => setPage("admin")}
-          className="mr-5 btn btn btn-reverse-primary"
-        >
-          <i className="fa-solid fa-location-dot mr-15"></i>
-          <span>Ajouter une location</span>
-        </button>
-        <button className="btn btn btn-primary">
-          <i className="fa-solid fa-right-to-bracket mr-15"></i>
-          <span>Connexion</span>
-        </button>
+      <ul className={`${styles.headerList}`}>
+        <NavLink className="btn" to="/">
+          <button className="btn btn-reverse-primary">
+            <i className="fa-solid fa-house mr-15"></i>
+            <span>Accueil</span>
+          </button>
+        </NavLink>
+        <NavLink className="btn" to="/apropos">
+          <button className="btn btn-reverse-primary">
+            <i className="fa-solid fa-book-open mr-15"></i>
+            <span>A propos</span>
+          </button>
+        </NavLink>
+        <NavLink className="btn" to="/">
+          <button className="btn btn-reverse-primary">
+            <i className="fa-solid fa-heart mr-15"></i>
+            <span>Wishlist</span>
+          </button>
+        </NavLink>
+        <NavLink className="btn" to="/admin">
+          <button className="btn btn-reverse-primary">
+            <i className="fa-solid fa-location-dot mr-15"></i>
+            <span>Ajouter une location</span>
+          </button>
+        </NavLink>
+        <NavLink className="btn" to="/">
+          <button className="btn btn-primary">
+            <i className="fa-solid fa-right-to-bracket mr-15"></i>
+            <span>Connexion</span>
+          </button>
+        </NavLink>
       </ul>
       <i
         onClick={() => setShowMenu(true)}
@@ -43,7 +53,7 @@ function Header({ setPage }) {
       {showMenu && (
         <>
           <div onClick={() => setShowMenu(false)} className="calc"></div>
-          <HeaderMenu setPage={setPage} />
+          <HeaderMenu />
         </>
       )}
     </header>

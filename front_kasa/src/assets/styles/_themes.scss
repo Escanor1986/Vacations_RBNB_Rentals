@@ -2,8 +2,8 @@ $button-top: -50px; // Position initiale des boutons
 $button-opacity: 0; // Opacité initiale des boutons
 
 .btn {
-  padding: 5px 15px;
-  border-radius: 20px;
+  padding: 8px 5px;
+  border-radius: 25px;
   cursor: pointer;
   transition: 0.2s opacity;
   opacity: $button-opacity; // Définir l'opacité initiale des boutons
@@ -54,7 +54,7 @@ $button-opacity: 0; // Opacité initiale des boutons
   border: 2px solid var(--primary);
   font-style: normal;
   font-weight: 500;
-  font-size: 16px;
+  font-size: 18px;
 }
 
 .btn-reverse-primary {
@@ -63,7 +63,7 @@ $button-opacity: 0; // Opacité initiale des boutons
   background-color: white;
   font-style: normal;
   font-weight: 500;
-  font-size: 16px;
+  font-size: 18px;
 }
 
 .card {
@@ -92,4 +92,12 @@ input {
   color: var(--red-1);
   font-weight: 500;
   font-size: 12px;
+}
+
+.btn > span {
+  padding: 0 5px 0 5px;
+}
+
+.btn > i {
+  padding-left: 5px;
 }
