@@ -21,9 +21,9 @@ export default function Homepage() {
     try {
       const response = await fetch(
         /* "http://localhost:4000/api/products/" */
-        `${BASE_URL_API}${updatedRental.id}/like`,
+        `${BASE_URL_API}${updatedRental._id}/like`,
         {
-          method: "PUT",
+          method: "PATCH",
           headers: {
             "Content-Type": "application/json",
           },
@@ -33,7 +33,7 @@ export default function Homepage() {
       if (response.ok) {
         const updatedRental = await response.json();
         setRentals(
-          rentals.map((r) => (r.id === updatedRental.id ? updatedRental : r))
+          rentals.map((r) => (r._id === updatedRental._id ? updatedRental : r))
         );
         console.log('"Liked" mis à jour !'); // le serveur répond également avec succès
       }
@@ -48,7 +48,7 @@ export default function Homepage() {
         method: "DELETE",
       });
       if (response.ok) {
-        setRentals(rentals.filter((r) => r.id !== id));
+        setRentals(rentals.filter((r) => r._id !== id));
       }
     } catch (e) {
       console.log("Erreur lors de la suppression de la location !");
