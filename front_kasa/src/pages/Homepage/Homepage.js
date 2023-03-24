@@ -1,58 +1,32 @@
-import React, { useState, useContext } from "react";
+import React, { useState } from "react";
 import styles from "./Homepage.module.scss";
 import TOP_CONTENT from "../../assets/images/Top_Content_Img.png";
 import Rental from "./components/Rental/Rental";
 import Loading from "../../components/Loading/Loading";
 import Search from "./components/Search/Search";
-import { ApiContext } from "../../context/ApiContext";
 import { useFetchRentals } from "../../hooks";
 import { NavLink } from "react-router-dom";
+import { updateRental as updateR, deleteRental as deleteR } from "../../apis";
 // import { data } from "../../data/rentals"; *********** A garder si besoin de montrer comme demandé dans le projet
 
 export default function Homepage() {
   // const rentals = data; *********** A garder si besoin de montrer comme demandé dans le projet
   const [filter, setFilter] = useState("");
-  const BASE_URL_API = useContext(ApiContext);
   const [isHovered, setIsHovered] = useState(false);
   const [[rentals, setRentals, isLoading]] = useFetchRentals(); // récupération du fetch depuis le HOOKS
 
-  // fonction pour la mise à jour du like sur les cards
+  // fonction pour la mise à jour du like sur les cards (récupéré depuis ../../apis)
   async function updateRental(updatedRental) {
-    try {
-      const response = await fetch(
-        /* "http://localhost:4000/api/products/" */
-        `${BASE_URL_API}${updatedRental._id}/like`,
-        {
-          method: "PATCH",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(updatedRental),
-        }
-      );
-      if (response.ok) {
-        const updatedRental = await response.json();
-        setRentals(
-          rentals.map((r) => (r._id === updatedRental._id ? updatedRental : r))
-        );
-        console.log('"Liked" mis à jour !'); // le serveur répond également avec succès
-      }
-    } catch (e) {
-      console.log("Erreur");
-    }
+    const savedRental = await updateR(updatedRental);
+    setRentals(
+      rentals.map((r) => (r._id === savedRental._id ? savedRental : r))
+    );
   }
 
-  async function deleteRental(id) {
-    try {
-      const response = await fetch(`${BASE_URL_API}/${id}`, {
-        method: "DELETE",
-      });
-      if (response.ok) {
-        setRentals(rentals.filter((r) => r._id !== id));
-      }
-    } catch (e) {
-      console.log("Erreur lors de la suppression de la location !");
-    }
+  // fonction pour la suppression d'une location (récupéré depuis ../../apis)
+  async function deleteRental(_id) {
+    await deleteR(_id);
+    setRentals(rentals.filter((r) => r._id !== _id));
   }
 
   return (
@@ -93,7 +67,7 @@ export default function Homepage() {
                   </div>
                   {isHovered && (
                     <div className={styles.link}>
-                      <NavLink to={`/fiche/${r.id}`} className={styles.link}>
+                      <NavLink to={`/rentals/${r._id}`} className={styles.link}>
                         <i className="fa-solid fa-eye fa-beat-fade"></i>
                       </NavLink>
                     </div>

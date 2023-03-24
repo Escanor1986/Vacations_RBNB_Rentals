@@ -21,11 +21,15 @@ exports.getAllProducts = async (req, res, next) => {
 
 exports.getOneProduct = async (req, res, next) => {
   try {
-    const product = await Product.findById(req.params.id).lean().exec();
+    const productId = req.params.id;
+    const product = await Product.findById(productId);
+
     if (!product) {
       return res.status(404).send(new Error("Product not found!"));
     }
-    res.status(200).json(product);
+
+    // Renvoyer la vue avec les informations du produit
+    res.render("productDetails", { product });
   } catch (err) {
     console.error(err);
     res.status(500).send("Database error!");
