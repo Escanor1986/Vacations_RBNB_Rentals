@@ -1,11 +1,11 @@
-import styles from "./RentalForm.module.scss";
+import styles from "./AdminRentalsForm.module.scss";
 import * as yup from "yup";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useContext } from "react";
-import { ApiContext } from "../../../../context/ApiContext";
+import { ApiContext } from "../../../../../../context/ApiContext";
 
-function RentalForm() {
+function AdminRentalsForm() {
   const BASE_URL = useContext(ApiContext);
 
   const defaultValues = {
@@ -86,4 +86,4 @@ function RentalForm() {
   );
 }
 
-export default RentalForm;
+export default AdminRentalsForm;
