@@ -14,6 +14,11 @@ const productSchema = new Schema(
       required: true,
       trim: true,
     },
+    liked: {
+      type: Boolean,
+      required: true,
+      trim: true,
+    },
     cover: {
       type: String,
       required: true,

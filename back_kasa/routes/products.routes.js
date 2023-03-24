@@ -15,7 +15,7 @@ const productCtrl = require("../controllers/products.controller");
 router.get("/", productCtrl.getAllProducts);
 
 // Route pour gérer le like sur les produits
-router.put("/:id/like", productCtrl.likeProduct);
+router.patch("/:id/like", productCtrl.likeProduct);
 
 // Route pour récupérer un produit par son ID
 router.get("/:id", productCtrl.getOneProduct);
