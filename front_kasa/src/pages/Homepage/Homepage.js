@@ -5,7 +5,7 @@ import Rental from "./components/Rental/Rental";
 import Loading from "../../components/Loading/Loading";
 import Search from "./components/Search/Search";
 import { ApiContext } from "../../context/ApiContext";
-import { useFetchData } from "../../hooks";
+import { useFetchRentals } from "../../hooks";
 import { NavLink } from "react-router-dom";
 // import { data } from "../../data/rentals"; *********** A garder si besoin de montrer comme demandé dans le projet
 
@@ -14,15 +14,16 @@ export default function Homepage() {
   const [filter, setFilter] = useState("");
   const BASE_URL_API = useContext(ApiContext);
   const [isHovered, setIsHovered] = useState(false);
-  const [[rentals, setRentals, isLoading]] = useFetchData(BASE_URL_API); // récupération du fetch depuis le HOOKS
+  const [[rentals, setRentals, isLoading]] = useFetchRentals(); // récupération du fetch depuis le HOOKS
 
   // fonction pour la mise à jour du like sur les cards
   async function updateRental(updatedRental) {
     try {
       const response = await fetch(
-        `${BASE_URL_API}/rentals/${updatedRental.id}/like`,
+        /* "http://localhost:4000/api/products/" */
+        `${BASE_URL_API}${updatedRental.id}/like`,
         {
-          method: "PATCH",
+          method: "PUT",
           headers: {
             "Content-Type": "application/json",
           },

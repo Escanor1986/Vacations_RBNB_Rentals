@@ -1,5 +1,6 @@
 const RENTAL_API = "http://localhost:4000/api/products";
 
+// getRentals est exporté vers hooks/useFetchRentals.js
 export async function getRentals(queryParam) {
   const response = await fetch(
     `${RENTAL_API}${queryParam ? `?${queryParam}` : ""}`

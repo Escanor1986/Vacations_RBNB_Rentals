@@ -1,1 +1,1 @@
-export * from "./useFetchData";
+export * from "./useFetchRentals";

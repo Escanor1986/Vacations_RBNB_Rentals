@@ -605,7 +605,7 @@ for (const product of products) {
   productById[product.id] = product;
 }
 
-exports.find = async () => {
+exports.find = () => {
   return products;
 };
 

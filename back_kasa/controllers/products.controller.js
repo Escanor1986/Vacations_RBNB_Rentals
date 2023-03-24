@@ -1,5 +1,5 @@
 const Product = require("../models/products");
-// const mongoose = require("mongoose");
+const fs = require("fs");
 
 // Récupération de TOUS les produits *************************************************************
 // ***********************************************************************************************
@@ -7,14 +7,9 @@ const Product = require("../models/products");
 exports.getAllProducts = async (req, res, next) => {
   try {
     const products = await Product.find();
+    console.log(products.length);
 
-    const mappedProducts = products.map((product) => {
-      product.imageUrl = `${req.protocol}://${req.get("host")}/images/${
-        product.imageUrl
-      }`;
-      return product;
-    });
-    res.status(200).json(mappedProducts);
+    res.status(200).json(products);
   } catch (err) {
     console.error(err);
     res.status(500).send("Database error!");
@@ -30,9 +25,6 @@ exports.getOneProduct = async (req, res, next) => {
     if (!product) {
       return res.status(404).send(new Error("Product not found!"));
     }
-    product.imageUrl = `${req.protocol}://${req.get("host")}/images/${
-      product.imageUrl
-    }`;
     res.status(200).json(product);
   } catch (err) {
     console.error(err);
@@ -44,30 +36,41 @@ exports.getOneProduct = async (req, res, next) => {
 // ***********************************************************************************************
 
 exports.likeProduct = async (req, res, next) => {
+  console.log("IN");
+  console.log(req.params.id);
+  console.log(req.params.liked);
   try {
     const productId = req.params.id;
-    const product = await Product.findById(productId);
+    const product = Product.find((p) => p.id === productId);
 
     if (!product) {
       return res.status(404).send(new Error("Product not found!"));
     }
 
     product.liked = !product.liked;
+    console.log(product.liked);
 
-    // Mettre à jour le produit dans la base de données
-    await product.save();
-    console.log("Product saved !");
-    // Mettre à jour le produit dans le tableau "products"
-    const index = products.findIndex((p) => p.id === productId);
-    if (index >= 0) {
-      products[index].liked = product.liked;
-    }
-
-    // Envoyer le produit mis à jour au client
-    res.status(200).json(product);
+    // Mettre à jour le fichier contenant les produits
+    const updatedProducts = Product.map((p) =>
+      p.id === productId ? product : p
+    );
+    fs.writeFile(
+      "./models/products.js",
+      JSON.stringify(updatedProducts),
+      (err) => {
+        if (err) {
+          console.error(err);
+          res.status(500).send("Error updating product!");
+        } else {
+          console.log("Product updated !");
+          // Envoyer le produit mis à jour au client
+          res.status(200).json(product);
+        }
+      }
+    );
   } catch (err) {
     console.error(err);
-    res.status(500).send("Database error!");
+    res.status(500).send("Error updating product!");
   }
 };
 
