@@ -12,7 +12,7 @@ function HeaderMenu({ setPage }) {
       </li>
       <li>Wishlist</li>
       <li>
-        <NavLink to="/admin">Ajouter une location</NavLink>
+        <NavLink to="/admin">Admin</NavLink>
       </li>
       <li>Connexion</li>
     </ul>

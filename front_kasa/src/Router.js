@@ -1,14 +1,17 @@
 import { lazy } from "react";
 import { createBrowserRouter, redirect } from "react-router-dom";
 import App from "./App";
+import { getRental } from "./apis";
 
 const Homepage = lazy(() => import("./pages/Homepage/Homepage"));
-const Admin = lazy(() => import("./pages/Admin/Admin"));
 const Apropos = lazy(() => import("./pages/APropos/APropos"));
 const NotFound = lazy(() => import("./pages/NotFound/NotFound"));
-const FicheLogement = lazy(() => import("./pages/FicheLogement/FicheLogement"));
+const Admin = lazy(() => import("./pages/Admin/Admin"));
 const AdminRentals = lazy(() =>
   import("./pages/Admin/pages/AdminRentals/AdminRentals")
+);
+const AdminUsers = lazy(() =>
+  import("./pages/Admin/pages/AdminUsers/AdminUsers")
 );
 const AdminRentalsList = lazy(() =>
   import(
@@ -20,9 +23,6 @@ const AdminRentalsForm = lazy(() =>
     "./pages/Admin/pages/AdminRentals/pages/AdminRentalsForm/AdminRentalsForm"
   )
 );
-const AdminUsers = lazy(() =>
-  import("./pages/Admin/pages/AdminUsers/AdminUsers")
-);
 
 export const router = createBrowserRouter([
   {
@@ -32,10 +32,6 @@ export const router = createBrowserRouter([
       {
         index: true,
         element: <Homepage />,
-      },
-      {
-        path: "fiche",
-        element: <FicheLogement />,
       },
       {
         path: "apropos",
@@ -58,11 +54,12 @@ export const router = createBrowserRouter([
                 element: <AdminRentalsList />,
               },
               {
-                path: "form",
+                path: "new",
                 element: <AdminRentalsForm />,
               },
               {
                 path: "edit/:rentalId",
+                loader: async ({ params: { rentalId } }) => getRental(rentalId),
                 element: <AdminRentalsForm />,
               },
             ],

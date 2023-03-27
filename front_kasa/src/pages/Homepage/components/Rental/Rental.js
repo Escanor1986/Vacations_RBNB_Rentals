@@ -1,8 +1,8 @@
 import styles from "./Rental.module.scss";
 
-function Rental({ rental, updateRental, deleteRental }) {
+function Rental({ rental, updateLikeRental, deleteRental }) {
   function handleClickLike() {
-    updateRental({
+    updateLikeRental({
       ...rental,
       liked: !rental.liked,
     });
@@ -11,7 +11,7 @@ function Rental({ rental, updateRental, deleteRental }) {
   async function handleClickDelete(e) {
     // la stop la propagation car nous sommes déjà à l'intérieur d'un élément pour lequel l'on écoute un évènement
     e.stopPropagation();
-    deleteRental(rental.id);
+    deleteRental(rental._id);
   }
 
   return (

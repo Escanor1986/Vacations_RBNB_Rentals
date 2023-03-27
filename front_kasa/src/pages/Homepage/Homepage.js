@@ -6,7 +6,10 @@ import Loading from "../../components/Loading/Loading";
 import Search from "./components/Search/Search";
 import { useFetchRentals } from "../../hooks";
 import { NavLink } from "react-router-dom";
-import { updateRental as updateR, deleteRental as deleteR } from "../../apis";
+import {
+  updateLikeRental as updateLikeR,
+  deleteRental as deleteR,
+} from "../../apis";
 // import { data } from "../../data/rentals"; *********** A garder si besoin de montrer comme demandé dans le projet
 
 export default function Homepage() {
@@ -16,10 +19,10 @@ export default function Homepage() {
   const [[rentals, setRentals, isLoading]] = useFetchRentals(); // récupération du fetch depuis le HOOKS
 
   // fonction pour la mise à jour du like sur les cards (récupéré depuis ../../apis)
-  async function updateRental(updatedRental) {
-    const savedRental = await updateR(updatedRental);
+  async function updateLikeRental(updatedLikeRental) {
+    const savedLikeRental = await updateLikeR(updatedLikeRental);
     setRentals(
-      rentals.map((r) => (r._id === savedRental._id ? savedRental : r))
+      rentals.map((r) => (r._id === savedLikeRental._id ? savedLikeRental : r))
     );
   }
 
@@ -53,7 +56,7 @@ export default function Homepage() {
               .filter((r) => r.title.toLowerCase().includes(filter))
               .map((r) => (
                 <div
-                  key={r.id}
+                  key={r._id}
                   className={styles.rentalContainer}
                   onMouseEnter={() => setIsHovered(true)}
                   onMouseLeave={() => setIsHovered(false)}
@@ -62,12 +65,12 @@ export default function Homepage() {
                     <Rental
                       rental={r}
                       deleteRental={deleteRental}
-                      updateRental={updateRental}
+                      updateLikeRental={updateLikeRental}
                     />
                   </div>
                   {isHovered && (
                     <div className={styles.link}>
-                      <NavLink to={`/fiche/${r._id}`} className={styles.link}>
+                      <NavLink to={`/fiche`} className={styles.link}>
                         <i className="fa-solid fa-eye fa-beat-fade"></i>
                       </NavLink>
                     </div>

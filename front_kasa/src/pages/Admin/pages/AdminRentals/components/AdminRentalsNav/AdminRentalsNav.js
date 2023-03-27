@@ -1,23 +1,23 @@
 import { NavLink } from "react-router-dom";
-import styles from "./AdminNav.module.scss";
+import styles from "./AdminRentalsNav.module.scss";
 
-function AdminNav() {
+function AdminRentalsNav() {
   return (
-    <ul className={`${styles.list} d-flex flex-column`}>
+    <ul className={styles.list}>
       <NavLink
         className={({ isActive }) => (isActive ? styles.active : "")}
-        to="rentals"
+        to="list"
       >
-        Locations
+        Liste des locations
       </NavLink>
       <NavLink
         className={({ isActive }) => (isActive ? styles.active : "")}
-        to="users"
+        to="new"
       >
-        Utilisateurs
+        Ajouter une location
       </NavLink>
     </ul>
   );
 }
 
-export default AdminNav;
+export default AdminRentalsNav;

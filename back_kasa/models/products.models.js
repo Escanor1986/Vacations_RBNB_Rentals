@@ -3,12 +3,12 @@ const { Schema } = mongoose;
 
 const productSchema = new Schema(
   {
-    id: {
-      type: String,
-      required: true,
-      unique: true, // pour garantir que chaque produit a un identifiant unique
-      trim: true, // pour toutes les propriétés de chaîne de caractères pour supprimer les espaces inutiles au début et à la fin de la chaîne.
-    },
+    // id: {
+    //   type: String,
+    //   required: true,
+    //   unique: true, // pour garantir que chaque produit a un identifiant unique
+    //   trim: true, // pour toutes les propriétés de chaîne de caractères pour supprimer les espaces inutiles au début et à la fin de la chaîne.
+    // },
     title: {
       type: String,
       required: true,

@@ -39,17 +39,35 @@ export async function deleteRental(_id) {
 }
 
 // fonction pour la mise à jour du like sur les cards
-export async function updateRental(updatedRental) {
-  const { _id, ...restRecipe } = updatedRental;
+export async function updateLikeRental(updatedRental) {
+  const { _id, ...restRental } = updatedRental;
   const response = await fetch(`${RENTAL_API}/${updatedRental._id}/like`, {
     method: "PATCH",
     headers: {
       "Content-Type": "application/json",
     },
-    body: JSON.stringify(restRecipe),
+    body: JSON.stringify(restRental),
   });
   if (response.ok) {
     console.log('"Liked" mis à jour !');
+    return response.json();
+  } else {
+    throw new Error("Error fetch update rental");
+  }
+}
+
+// fonction pour la mise à jour du like sur les cards
+export async function updateRental(updatedRental) {
+  const { _id, ...restRental } = updatedRental;
+  const response = await fetch(`${RENTAL_API}/${_id}`, {
+    method: "PUT",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(restRental),
+  });
+  if (response.ok) {
+    console.log("Location mise à jour !");
     return response.json();
   } else {
     throw new Error("Error fetch update rental");

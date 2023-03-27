@@ -80,32 +80,5 @@ app.use(express.json());
 // Routes ....
 app.use("/api/products", productsRoutes);
 
-// Middelware de Gestion des erreurs pour remplacer celui d'express
-// if (process.env.NODE_ENV === "development") {
-//   app.use(errorHandler());
-//   // ce résultat ne sera pas montré en production car il nous montre le rapport d'erreur de la stack
-// }
-
-// app.use((err, req, res, next) => {
-//   console.log(process.env.NODE_ENV);
-//   const env = process.env.NODE_ENV;
-//   if (env === "production") {
-//     res.status(500).json({
-//       code: err.code || 500,
-//       message: err.message,
-//     });
-//   }
-//   next();
-// });
-
-// app.use((req, res, next) => {
-//   res.json({ message: "Votre requête a bien été reçue !" });
-//   next();
-// });
-
-// app.use((req, res, next) => {
-//   console.log("Réponse envoyée avec succès !");
-// });
-
 //on exporte app pour l'utiliser ailleurs
 module.exports = app;

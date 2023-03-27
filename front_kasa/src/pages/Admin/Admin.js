@@ -1,11 +1,16 @@
 import { Outlet } from "react-router-dom";
+import { Suspense } from "react";
 import AdminNav from "./components/AdminNav/AdminNav";
 
 function Admin() {
   return (
-    <div className="d-flex flex-fill align-items-center justify-content-center p-20">
+    <div className="d-flex flex-fill p-20">
       <AdminNav />
-      <Outlet />
+      <div className="d-flex flex-column flex-fill">
+        <Suspense>
+          <Outlet />
+        </Suspense>
+      </div>
     </div>
   );
 }

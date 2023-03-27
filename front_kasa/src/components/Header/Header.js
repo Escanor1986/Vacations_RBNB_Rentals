@@ -35,8 +35,8 @@ function Header() {
         </NavLink>
         <NavLink className="btn" to="/admin">
           <button className="btn btn-reverse-primary">
-            <i className="fa-solid fa-location-dot mr-15"></i>
-            <span>Ajouter une location</span>
+            <i className="fa-solid fa-lock mr-15"></i>
+            <span>Admin</span>
           </button>
         </NavLink>
         <NavLink className="btn" to="/">
