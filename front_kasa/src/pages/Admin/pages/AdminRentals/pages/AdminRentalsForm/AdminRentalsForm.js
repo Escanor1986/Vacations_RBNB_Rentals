@@ -1,9 +1,9 @@
+import { Navigate, useLoaderData } from "react-router-dom";
 import styles from "./AdminRentalsForm.module.scss";
 import * as yup from "yup";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { createRental, updateRental } from "../../../../../../apis";
-import { Navigate, useLoaderData } from "react-router-dom";
 
 function AdminRentalsForm() {
   const rental = useLoaderData();
@@ -12,7 +12,7 @@ function AdminRentalsForm() {
     title: rental ? rental.title : "",
     liked: rental ? rental.liked : false,
     cover: rental ? rental.cover : "",
-    pictures: rental ? rental.pictures : "",
+    pictures: rental ? rental.pictures : [],
     description: rental ? rental.description : "",
     host: {
       name: rental ? rental.host.name : "",
@@ -20,8 +20,8 @@ function AdminRentalsForm() {
     },
     rating: rental ? rental.rating : 0,
     location: rental ? rental.location : "",
-    equipments: rental ? rental.equipments : "",
-    tags: rental ? rental.tags : "",
+    equipments: rental ? rental.equipments : [],
+    tags: rental ? rental.tags : [],
   };
 
   const rentalSchema = yup.object({
@@ -74,6 +74,7 @@ function AdminRentalsForm() {
     reset,
     setError,
     clearErrors,
+    setValue,
   } = useForm({
     defaultValues,
     resolver: yupResolver(rentalSchema),
@@ -93,8 +94,10 @@ function AdminRentalsForm() {
           cover: updatedRental.cover,
           pictures: updatedRental.pictures,
           description: updatedRental.description,
-          "name.host": updatedRental.host.name,
-          "picture.host": updatedRental.host.picture,
+          host: {
+            name: updatedRental.host.name,
+            picture: updatedRental.host.picture,
+          },
           rating: updatedRental.rating,
           location: updatedRental.location,
           equipments: updatedRental.equipments,
@@ -131,7 +134,14 @@ function AdminRentalsForm() {
 
       <div className="d-flex flex-column mb-20">
         <label>Image(s) URL supplémentaire(s) (séparées par une virgule)</label>
-        <input {...register("pictures")} type="text" />
+        <input
+          {...register("pictures")}
+          type="text"
+          onChange={(e) => {
+            const pictures = e.target.value.split(",");
+            setValue("pictures", pictures);
+          }}
+        />
         {errors.pictures && (
           <p className="form-error">{errors.pictures.message}</p>
         )}
@@ -171,7 +181,15 @@ function AdminRentalsForm() {
 
       <div className="d-flex flex-column mb-20">
         <label>Equipement(s) de la location (séparés par une virgule)</label>
-        <input {...register("equipments")} type="text" />
+        <input
+          {...register("equipments")}
+          type="text"
+          onChange={(e) => {
+            const equipments = e.target.value.split(",");
+            setValue("equipments", equipments);
+          }}
+        />
+
         {errors.equipments && (
           <p className="form-error">{errors.equipments.message}</p>
         )}
@@ -179,7 +197,14 @@ function AdminRentalsForm() {
 
       <div className="d-flex flex-column mb-20">
         <label>Tags (séparés par une virgule)</label>
-        <input {...register("tags")} type="text" />
+        <input
+          {...register("tags")}
+          type="text"
+          onChange={(e) => {
+            const tags = e.target.value.split(",");
+            setValue("tags", tags);
+          }}
+        />
         {errors.tags && <p className="form-error">{errors.tags.message}</p>}
       </div>
 

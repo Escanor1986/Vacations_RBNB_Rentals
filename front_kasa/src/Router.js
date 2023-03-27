@@ -3,6 +3,7 @@ import { createBrowserRouter, redirect } from "react-router-dom";
 import App from "./App";
 import { getRental } from "./apis";
 
+const FicheLogement = lazy(() => import("./pages/FicheLogement/FicheLogement"));
 const Homepage = lazy(() => import("./pages/Homepage/Homepage"));
 const Apropos = lazy(() => import("./pages/APropos/APropos"));
 const NotFound = lazy(() => import("./pages/NotFound/NotFound"));
@@ -36,6 +37,11 @@ export const router = createBrowserRouter([
       {
         path: "apropos",
         element: <Apropos />,
+      },
+      {
+        path: "fiche/:id",
+        loader: async ({ params: { id } }) => getRental(id),
+        element: <FicheLogement />,
       },
       {
         path: "admin",

@@ -70,7 +70,13 @@ export default function Homepage() {
                   </div>
                   {isHovered && (
                     <div className={styles.link}>
-                      <NavLink to={`/fiche`} className={styles.link}>
+                      <NavLink
+                        to={{
+                          pathname: `/fiche/${r._id}`,
+                          state: { id: r._id },
+                        }}
+                        className={styles.link}
+                      >
                         <i className="fa-solid fa-eye fa-beat-fade"></i>
                       </NavLink>
                     </div>

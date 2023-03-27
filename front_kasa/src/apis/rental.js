@@ -9,6 +9,7 @@ export async function getRentals(queryParam) {
   );
   if (response.ok) {
     const body = await response.json();
+    console.log("Liste des locations chargée avec succès !");
     return Array.isArray(body) ? body : [body];
   } else {
     throw new Error("Error fetch Rentals");
@@ -19,6 +20,7 @@ export async function getRentals(queryParam) {
 export async function getRental(_id) {
   const response = await fetch(`${RENTAL_API}/${_id}`);
   if (response.ok) {
+    console.log("Location chargée avec succès !");
     return response.json();
   } else {
     throw new Error("Error fetch get one rental");
