@@ -58,10 +58,12 @@ export default function FicheLogement() {
           <h1>{rental.title}</h1>
           <h3>{rental.location}</h3>
           <div>
-            <span className={`mt-20 d-flex flex-row justify-content-start`}>
+            <span
+              className={`mt-20 d-flex flex-row flex-wrap justify-content-start`}
+            >
               {rental.tags.map((tags) => (
                 <div
-                  className={`mr-15 d-flex flex-row justify-content-center align-items-center`}
+                  className={`mr-15 mt-5 d-flex flex-row justify-content-center align-items-center`}
                   key={tags}
                 >
                   {tags}

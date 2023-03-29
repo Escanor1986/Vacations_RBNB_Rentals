@@ -229,10 +229,29 @@
     justify-content: space-between;
     align-items: center;
     flex-direction: row-reverse;
+    div > h3 {
+      font-style: normal;
+      font-weight: 500;
+      font-size: 14px;
+      line-height: 142.6%;
+    }
+    div > img {
+      width: 64px;
+      height: 64px;
+    }
   }
 
   .leftBox {
     width: 100%;
+    h1 {
+      font-size: 20px;
+    }
+    h3 {
+      font-size: 16px;
+    }
+    span > div {
+      font-size: 12px;
+    }
   }
 
   .detailDropDownContainer {
@@ -241,12 +260,44 @@
     flex-direction: column;
     flex: 1 1 auto;
     width: 100%;
-    margin-bottom: 200px;
+    margin-bottom: 100px;
+  }
+
+  .ratingContainer {
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 18px;
+
+    .star {
+      width: 30px;
+      height: 30px;
+      padding: 10px 0 0 10px;
+      color: #d8d8d8;
+      // cursor: pointer;
+    }
+
+    .active {
+      color: var(--primary);
+    }
+  }
+
+  .dropDownButton {
+    font-size: 16px;
+    line-height: 100.6%;
+    padding: 10px 20px 10px 20px;
+  }
+
+  .dropDownContent {
+    font-size: 14px;
+    line-height: 100.6%;
+    padding: 20px 0 10px 20px;
   }
 
   .leftDetailDropDownContainer {
-    margin: 20px 0 20px 0;
+    margin: 0 0 20px 0;
     width: 100%;
+
     padding-right: 0;
   }
 

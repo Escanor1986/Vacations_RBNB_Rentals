@@ -14,6 +14,10 @@
     &:hover {
       opacity: 0.8;
     }
+    @include mixin.headerMenu {
+      width: 145px;
+      height: 47px;
+    }
   }
 }
 
