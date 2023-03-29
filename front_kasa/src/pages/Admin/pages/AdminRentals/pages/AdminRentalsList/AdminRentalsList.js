@@ -16,7 +16,15 @@ function AdminRentalsList() {
       {rentals.length
         ? rentals.map((r) => (
             <li key={r._id} className="d-flex align-items-center">
-              <img src={r.cover} alt="main cover" />
+              <NavLink
+                to={{
+                  pathname: `/fiche/${r._id}`,
+                  state: { id: r._id },
+                }}
+                className={styles.link}
+              >
+                <img src={r.cover} alt="main cover" />
+              </NavLink>
               <span className="flex-fill">{r.title}</span>
               <NavLink to={`../edit/${r._id}`}>
                 <button className="btn btn-primary mr-15">Editer</button>

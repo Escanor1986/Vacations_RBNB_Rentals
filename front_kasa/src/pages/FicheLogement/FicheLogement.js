@@ -17,7 +17,7 @@ export default function FicheLogement() {
 
   // Utilise les données de la location pour afficher son titre et sa description
   return (
-    <div className="mx-40 flex-fill d-flex flex-column justify-content-center align-items-center">
+    <div className="mx-40 flex-fill d-flex flex-column">
       <div className={`mt-40 mb-20 ${styles.mainImageContainer}`}>
         <button
           className={` ${styles.arrowButtonLeft}`}
@@ -53,14 +53,27 @@ export default function FicheLogement() {
           />
         </button>
       </div>
-      <div className="flex-fill d-flex justify-content-between">
+      <div className={`${styles.rentalBox}`}>
         <div className={`d-flex flex-column  ${styles.leftBox}`}>
           <h1>{rental.title}</h1>
           <h3>{rental.location}</h3>
-          <div className={`d-flex flex-row justify-content-start`}></div>
+          <div>
+            <span className={`mt-20 d-flex flex-row justify-content-start`}>
+              {rental.tags.map((tags) => (
+                <div
+                  className={`mr-15 d-flex flex-row justify-content-center align-items-center`}
+                  key={tags}
+                >
+                  {tags}
+                </div>
+              ))}
+            </span>
+          </div>
         </div>
-        <div className={`d-flex flex-column  ${styles.rightBox}`}>
-          <div className={`d-flex flex-row justify-content-start`}>
+        <div className={`${styles.rightBox}`}>
+          <div
+            className={`d-flex flex-row justify-content-start align-items-center`}
+          >
             <h3>{rental.host.name}</h3>
             <img src={rental.host.picture} alt="host" />
           </div>
@@ -69,9 +82,7 @@ export default function FicheLogement() {
           </div>
         </div>
       </div>
-      <div
-        className={`mt-40 mb-20 flex-fill d-flex flex-row justify-content-between ${styles.detailDropDownContainer}`}
-      >
+      <div className={`${styles.detailDropDownContainer}`}>
         <div
           className={`flex-fill d-flex ${styles.leftDetailDropDownContainer}`}
         >

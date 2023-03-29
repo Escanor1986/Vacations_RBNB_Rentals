@@ -1,13 +1,9 @@
-import React, { useState } from "react";
+import React from "react";
 import styles from "../FicheLogement.module.scss";
+import { useLoaderData } from "react-router-dom";
 
-function Rating({ rating, onChange }) {
-  const [currentRating, setCurrentRating] = useState(rating);
-
-  const handleClick = (newRating) => {
-    setCurrentRating(newRating);
-    onChange(newRating);
-  };
+function Rating() {
+  const rental = useLoaderData(); // Récupère les données de la location
 
   return (
     <div className={styles.ratingContainer}>
@@ -15,11 +11,10 @@ function Rating({ rating, onChange }) {
         <span
           key={index}
           className={
-            index < currentRating
+            index < rental.rating
               ? `${styles.star} ${styles.active}`
               : styles.star
           }
-          onClick={() => handleClick(index + 1)}
         >
           ★
         </span>
