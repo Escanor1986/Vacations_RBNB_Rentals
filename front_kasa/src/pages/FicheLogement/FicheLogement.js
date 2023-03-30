@@ -43,10 +43,12 @@ export default function FicheLogement() {
 
   // Utilise les données de la location pour afficher son titre et sa description
   return (
-    <div className="mx-40 flex-fill d-flex flex-column">
+    <div className={`mx-40 flex-fill d-flex flex-column `}>
       {/* Pagination entre location, par ID */}
 
-      <div className={`mt-20 ${styles.rentalBox}`}>
+      <div
+        className={`mt-20 d-flex flex-row align-items-center ${styles.paginationBox}`}
+      >
         <button
           className={`d-flex flex-row align-items-center btn btn-reverse-primary ${styles.paginationButton}`}
           onClick={goToPreviousRental}
