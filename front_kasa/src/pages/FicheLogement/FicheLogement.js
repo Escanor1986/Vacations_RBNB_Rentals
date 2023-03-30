@@ -1,14 +1,40 @@
 import React, { useState } from "react";
 import styles from "./FicheLogement.module.scss";
-import { useLoaderData } from "react-router-dom";
+import { useLoaderData, useNavigate } from "react-router-dom";
 import Dropdown from "./components/Dropdown";
 import Rating from "./components/Rating";
 import Left_Arrow from "../../assets/images/LEFT_ARROW.png";
 import Right_Arrow from "../../assets/images/RIGHT_ARROW.png";
+import { getNextRentalId, getPreviousRentalId } from "../../apis/rental";
 
 export default function FicheLogement() {
   const rental = useLoaderData(); // Récupère les données de la location
   const [currentSlide, setCurrentSlide] = useState(0); // Ajout d'un état pour stocker l'index du slide courant
+  const navigate = useNavigate();
+
+  // Fonction permettant la navigation vers l'_id suivant
+  const goToPreviousRental = async () => {
+    try {
+      const previousRentalId = await getPreviousRentalId(rental._id);
+      if (previousRentalId) {
+        navigate(`/fiche/${previousRentalId}`);
+      }
+    } catch (error) {
+      console.error("Error fetching previous rental:", error);
+    }
+  };
+
+  // Fonction permettant la navigation vers l'_id précédent
+  const goToNextRental = async () => {
+    try {
+      const nextRentalId = await getNextRentalId(rental._id);
+      if (nextRentalId) {
+        navigate(`/fiche/${nextRentalId}`);
+      }
+    } catch (error) {
+      console.error("Error fetching next rental:", error);
+    }
+  };
 
   // Vérifie que les données ont été chargées avant de les utiliser
   if (!rental) {
@@ -18,7 +44,32 @@ export default function FicheLogement() {
   // Utilise les données de la location pour afficher son titre et sa description
   return (
     <div className="mx-40 flex-fill d-flex flex-column">
-      <div className={`mt-40 mb-20 ${styles.mainImageContainer}`}>
+      {/* Pagination entre location, par ID */}
+
+      <div className={`mt-20 ${styles.rentalBox}`}>
+        <button
+          className={`d-flex flex-row align-items-center btn btn-reverse-primary ${styles.paginationButton}`}
+          onClick={goToPreviousRental}
+        >
+          <i className="fa-solid fa-arrow-left"></i>
+          <span>Précédent</span>
+        </button>
+        <div className={`d-flex flex-column  ${styles.leftBox}`}>
+          {/* ... */}
+        </div>
+        <div className={`${styles.rightBox}`}>{/* ... */}</div>
+        <button
+          className={`d-flex flex-row align-items-center btn btn-primary ${styles.paginationButton}`}
+          onClick={goToNextRental}
+        >
+          <span>Suivant</span>
+          <i className="fa-solid fa-arrow-right"></i>
+        </button>
+      </div>
+
+      {/* Fin de la pagination */}
+
+      <div className={`mt-20 mb-20 ${styles.mainImageContainer}`}>
         <button
           className={` ${styles.arrowButtonLeft}`}
           onClick={() =>

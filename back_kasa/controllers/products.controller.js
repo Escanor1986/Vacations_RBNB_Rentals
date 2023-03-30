@@ -207,3 +207,45 @@ exports.updateProduct = async (req, res, next) => {
     res.status(500).send("Database error!");
   }
 };
+
+// Récupération du produit suivant *************************************************************
+// ***********************************************************************************************
+
+exports.getNextProduct = async (req, res) => {
+  try {
+    const currentRentalId = req.params.currentRentalId;
+    const nextProduct = await Product.findOne({
+      _id: { $gt: currentRentalId },
+    }).sort({ _id: 1 });
+
+    if (nextProduct) {
+      res.status(200).json({ nextRentalId: nextProduct._id });
+    } else {
+      res.status(404).json({ message: "No next product found" });
+    }
+  } catch (error) {
+    console.error("Error fetching next product:", error);
+    res.status(500).json({ message: "Error fetching next product" });
+  }
+};
+
+// Récupération du produit précédent *************************************************************
+// ***********************************************************************************************
+
+exports.getPreviousProduct = async (req, res) => {
+  try {
+    const currentRentalId = req.params.currentRentalId;
+    const previousProduct = await Product.findOne({
+      _id: { $lt: currentRentalId },
+    }).sort({ _id: -1 });
+
+    if (previousProduct) {
+      res.status(200).json({ previousRentalId: previousProduct._id });
+    } else {
+      res.status(404).json({ message: "No previous product found" });
+    }
+  } catch (error) {
+    console.error("Error fetching previous product:", error);
+    res.status(500).json({ message: "Error fetching previous product" });
+  }
+};

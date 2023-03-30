@@ -27,6 +27,38 @@ export async function getRental(_id) {
   }
 }
 
+// fonction pour l'affichage de la location suivante
+export async function getNextRentalId(currentRentalId) {
+  try {
+    const response = await fetch(`${RENTAL_API}/next/${currentRentalId}`);
+    if (response.ok) {
+      console.log("Location suivante chargée avec succès !");
+      const data = await response.json();
+      return data.nextRentalId;
+    } else {
+      console.error("Error fetching next rental ID");
+    }
+  } catch (error) {
+    console.error("Error fetching next rental ID:", error);
+  }
+}
+
+// fonction pour l'affichage de la location précédente
+export async function getPreviousRentalId(currentRentalId) {
+  try {
+    const response = await fetch(`${RENTAL_API}/previous/${currentRentalId}`);
+    if (response.ok) {
+      console.log("Location précédente chargée avec succès !");
+      const data = await response.json();
+      return data.previousRentalId;
+    } else {
+      console.error("Error fetching previous rental ID");
+    }
+  } catch (error) {
+    console.error("Error fetching previous rental ID:", error);
+  }
+}
+
 // fonction pour la suppression d'une location
 export async function deleteRental(_id) {
   const response = await fetch(`${RENTAL_API}/${_id}`, {

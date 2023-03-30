@@ -26,6 +26,12 @@ router.put("/:id", productCtrl.updateProduct);
 // Route pour récupérer un produit par son ID
 router.get("/:id", productCtrl.getOneProduct);
 
+// Route pour récupérer le produit suivant par son ID
+router.get("/next/:currentRentalId", productCtrl.getNextProduct);
+
+// Route pour récupérer le produit précédent par son ID
+router.get("/previous/:currentRentalId", productCtrl.getPreviousProduct);
+
 // Route pour supprimer un produit
 router.delete("/:id", productCtrl.deleteProduct);
 
