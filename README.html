@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>README - Lancement de l'application Kasa</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        line-height: 1.6;
+        background-color: #f7f7f7;
+        color: #333;
+        margin: 0;
+        padding: 0;
+      }
+      h1 {
+        background-color: #ff6060;
+        color: #f7f7f7;
+        padding: 20px;
+        margin: 0;
+        font-size: 28px;
+      }
+
+      h2 {
+        font-size: 24px;
+        padding-left: 20px;
+        margin-top: 30px;
+        margin-bottom: 10px;
+      }
+
+      p {
+        font-size: 16px;
+        padding: 0 20px;
+      }
+
+      ul {
+        padding-left: 40px;
+      }
+
+      li {
+        margin-bottom: 10px;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>README - Lancement de l'application Kasa</h1>
+    <h2>Instructions pour lancer l'application Kasa :</h2>
+    <ul>
+      <li>
+        <p>
+          <strong
+            >Étape 1 : Accédez à au dossier principale de l'application</strong
+          >
+        </p>
+        <ol>
+          <li>Ouvrez un terminal.</li>
+          <li>
+            Naviguez jusqu'au dossier "kasa" en utilisant la commande "cd".
+            <br />
+            <code>cd kasa</code>
+          </li>
+        </ol>
+      </li>
+      <li>
+        <p><strong>Étape 2 : Lancement de l'application React</strong></p>
+        <ol>
+          <li>
+            Dans ce même terminal, Naviguez jusqu'au dossier "front_kasa" en
+            utilisant la commande "cd".
+            <br />
+            <code>cd front_kasa</code>
+          </li>
+          <li>
+            Entrez la commande "npm start" pour lancer l'application React.
+            <br />
+            <code>npm start</code>
+          </li>
+          <li>
+            L'application React sera ouverte dans votre navigateur par défaut à
+            l'adresse
+            <a href="http://localhost:3000/" target="_blank"
+              >http://localhost:3000/</a
+            >.
+          </li>
+        </ol>
+      </li>
+      <li>
+        <p>
+          <strong
+            >Étape 3 : Lancement du serveur Node.js et connexion à la base de
+            données MongoDB</strong
+          >
+        </p>
+        <ol>
+          <li>Ouvrez un second terminal en splitant le premier.</li>
+          <li>
+            Naviguez de cran en arrière jusqu'au dossier principale "kasa" en
+            utilisant la commande "cd ..".
+            <br />
+            <code>cd ..</code>
+          </li>
+          <li>
+            Naviguez ensuite jusqu'au dossier "back_kasa" en utilisant la
+            commande "cd".
+            <br />
+            <code>cd back_kasa</code>
+          </li>
+          <li>
+            Entrez la commande "npm start" pour lancer le serveur Node.js.
+            <br />
+            <code>npm start</code>
+          </li>
+          <li>
+            Le serveur Node.js sera maintenant en cours d'exécution dans votre
+            navigateur par défaut à l'adresse
+            <a href="http://localhost:4000/" target="_blank"
+              >http://localhost:4000/</a
+            >
+            et connecté à la base de données MongoDB.
+          </li>
+        </ol>
+      </li>
+    </ul>
+    <p>
+      Vous pouvez maintenant utiliser l'application Kasa dans votre navigateur
+      pour effectuer des opérations sur la base de données.
+    </p>
+  </body>
+</html>
