@@ -1,0 +1,24 @@
+.list {
+  background-color: white;
+  padding: 20px;
+  border-radius: var(--border-radius);
+  border: var(--border);
+  flex: 1 1 auto;
+  li {
+    padding: 5px 0px;
+    border-bottom: var(--border);
+    img {
+      width: 100px;
+      height: 75px;
+      border-radius: 5px;
+      transition: transform 0.5s ease-in-out;
+      &:hover {
+        transform: scale(2);
+        border-radius: 5px;
+      }
+    }
+    span {
+      padding-left: 10px;
+    }
+  }
+}

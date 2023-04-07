@@ -40,22 +40,22 @@ const errorHandler = (error) => {
   }
 };
 
-// const server = http.createServer(app);
+const server = http.createServer(app);
 
-http
-  .createServer((req, res) => {
-    res.writeHead("301", { Location: `https://${req.headers.host}${req.url}` });
-    res.end();
-  })
-  .listen(80); // 80 est le port par défaut pour http
+// http
+//   .createServer((req, res) => {
+//     res.writeHead("301", { Location: `https://${req.headers.host}${req.url}` });
+//     res.end();
+//   })
+//   .listen(80); // 80 est le port par défaut pour http
 
-const server = https.createServer(
-  {
-    key: fs.readFileSync(path.join(__dirname, "./ssl/myCA.key")),
-    cert: fs.readFileSync(path.join(__dirname, "./ssl/myCA.pem")),
-  },
-  app
-);
+// const server = https.createServer(
+//   {
+//     key: fs.readFileSync(path.join(__dirname, "./ssl/myCA.key")),
+//     cert: fs.readFileSync(path.join(__dirname, "./ssl/myCA.pem")),
+//   },
+//   app
+// );
 
 server.on("error", errorHandler);
 

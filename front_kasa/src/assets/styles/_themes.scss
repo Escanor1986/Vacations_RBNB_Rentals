@@ -2,14 +2,14 @@ $button-top: -50px; // Position initiale des boutons
 $button-opacity: 0; // Opacité initiale des boutons
 
 .btn {
-  padding: 5px 15px;
-  border-radius: 20px;
+  padding: 8px 5px;
+  border-radius: 25px;
   cursor: pointer;
   transition: 0.2s opacity;
   opacity: $button-opacity; // Définir l'opacité initiale des boutons
   position: relative;
   top: $button-top; // Définir la position initiale des boutons
-  z-index: 1000; // Assurez-vous que les boutons sont devant tout le reste
+  z-index: 1000;
 
   &:hover {
     opacity: 0.8;
@@ -28,7 +28,7 @@ $button-opacity: 0; // Opacité initiale des boutons
   }
 }
 
-// Appliquez l'animation aux boutons
+// Application de l'animation aux boutons
 .btn {
   animation: slideInFromTop 0.5s ease-in-out forwards;
   &:nth-child(1) {
@@ -43,6 +43,9 @@ $button-opacity: 0; // Opacité initiale des boutons
   &:nth-child(4) {
     animation-delay: 0.4s;
   }
+  &:nth-child(5) {
+    animation-delay: 0.5s;
+  }
 }
 
 .btn-primary {
@@ -51,7 +54,7 @@ $button-opacity: 0; // Opacité initiale des boutons
   border: 2px solid var(--primary);
   font-style: normal;
   font-weight: 500;
-  font-size: 20px;
+  font-size: 18px;
 }
 
 .btn-reverse-primary {
@@ -60,7 +63,7 @@ $button-opacity: 0; // Opacité initiale des boutons
   background-color: white;
   font-style: normal;
   font-weight: 500;
-  font-size: 20px;
+  font-size: 18px;
 }
 
 .card {
@@ -70,4 +73,37 @@ $button-opacity: 0; // Opacité initiale des boutons
 
 .text-primary {
   color: var(--primary);
+}
+
+label {
+  font-size: 14px;
+  font-weight: 500;
+  margin-bottom: 3px;
+}
+
+input {
+  padding: 10px 15px;
+  border: 2px solid var(--gray-2);
+  border-radius: 20px;
+}
+
+.form-error {
+  margin: 0;
+  color: var(--red-1);
+  font-weight: 500;
+  font-size: 12px;
+}
+
+.btn > span {
+  padding: 0 5px 0 5px;
+}
+
+.btn > i {
+  padding-left: 5px;
+}
+
+.btn-danger {
+  background-color: var(--red-1);
+  color: white;
+  border: 2px solid var(--red-1);
 }

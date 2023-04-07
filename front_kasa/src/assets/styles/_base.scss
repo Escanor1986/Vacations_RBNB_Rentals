@@ -2,7 +2,6 @@ body {
   margin: 0;
   font-family: var(--font-family);
   -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
   color: var(--text-color-1);
   background-color: white;
 }
@@ -34,4 +33,9 @@ input {
 
 ::placeholder {
   font-family: var(--font-family);
+}
+
+a {
+  color: var(--primary);
+  text-decoration: none;
 }

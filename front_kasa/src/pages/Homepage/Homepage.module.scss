@@ -4,6 +4,18 @@
   max-width: 100%;
   height: 223px;
   position: relative;
+
+  @media (max-width: 500px) {
+    height: 154px;
+  }
+
+  @media (min-width: 768px) {
+    height: 200px;
+  }
+
+  @media (min-width: 992px) {
+    height: 223px;
+  }
 }
 
 .mainImage {
@@ -112,20 +124,6 @@
   background-color: #f7f7f7;
 }
 
-.searchBar {
-  padding: 10px 15px;
-  border: 2px solid var(--primary);
-  border-radius: 20px;
-  input {
-    background-color: var(--gray-2);
-    color: var(--primary);
-    font-weight: 500;
-    font-size: 16px;
-    outline: 0;
-    border: 0;
-  }
-}
-
 .pageButton {
   -webkit-border-radius: 28;
   -moz-border-radius: 28;
@@ -150,4 +148,24 @@
     background-image: linear-gradient(to bottom, #ff6060, #f57d7d);
     text-decoration: none;
   }
+}
+
+.rentalContainer {
+  position: relative;
+}
+
+.link {
+  position: absolute;
+  visibility: hidden;
+  top: 10px;
+  left: 10px;
+}
+
+.link > i {
+  color: #ff6060;
+  font-size: xx-large;
+}
+
+.rentalContainer:hover .link {
+  visibility: visible;
 }

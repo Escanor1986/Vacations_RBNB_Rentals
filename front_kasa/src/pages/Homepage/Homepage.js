@@ -1,46 +1,35 @@
-import React, { useState, useEffect, useContext } from "react";
+import React, { useState } from "react";
 import styles from "./Homepage.module.scss";
 import TOP_CONTENT from "../../assets/images/Top_Content_Img.png";
 import Rental from "./components/Rental/Rental";
 import Loading from "../../components/Loading/Loading";
-import { ApiContext } from "../../context/ApiContext";
+import Search from "./components/Search/Search";
+import { useFetchRentals } from "../../hooks";
+import { NavLink } from "react-router-dom";
+import {
+  updateLikeRental as updateLikeR,
+  deleteRental as deleteR,
+} from "../../apis";
 // import { data } from "../../data/rentals"; *********** A garder si besoin de montrer comme demandé dans le projet
 
 export default function Homepage() {
   // const rentals = data; *********** A garder si besoin de montrer comme demandé dans le projet
-  const [rentals, setRentals] = useState([]);
-  const [isLoading, setIsLoading] = useState(true);
   const [filter, setFilter] = useState("");
-  const BASE_URL_API = useContext(ApiContext);
+  const [isHovered, setIsHovered] = useState(false);
+  const [[rentals, setRentals, isLoading]] = useFetchRentals(); // récupération du fetch depuis le HOOKS
 
-  useEffect(() => {
-    // déclaration de cette variable qui sera utilisée pour vérifier si le chargement des données depuis l'api
-    // est encore nécessaire, de fait, l'usage du loader au chargement.
-    let cancel = false;
-    async function fetchRentals() {
-      try {
-        setIsLoading(true);
-        const response = await fetch(BASE_URL_API);
-        if (response.ok && !cancel) {
-          // donc ici SI cancel est true
-          const rentals = await response.json();
-          setRentals(Array.isArray(rentals) ? rentals : [rentals]);
-        }
-      } catch (e) {
-        console.log("Erreur lors du chargement des données");
-      } finally {
-        if (!cancel) {
-          setIsLoading(false);
-        }
-      }
-    }
-    fetchRentals();
-    return () => (cancel = true);
-  }, [BASE_URL_API]);
+  // fonction pour la mise à jour du like sur les cards (récupéré depuis ../../apis)
+  async function updateLikeRental(updatedLikeRental) {
+    const savedLikeRental = await updateLikeR(updatedLikeRental);
+    setRentals(
+      rentals.map((r) => (r._id === savedLikeRental._id ? savedLikeRental : r))
+    );
+  }
 
-  function handleInput(e) {
-    const filter = e.target.value;
-    setFilter(filter.trim().toLowerCase()); // ici la méthode "trim()" permet de retirer les espaces vide dans la chaîne de caractère
+  // fonction pour la suppression d'une location (récupéré depuis ../../apis)
+  async function deleteRental(_id) {
+    await deleteR(_id);
+    setRentals(rentals.filter((r) => r._id !== _id));
   }
 
   return (
@@ -58,27 +47,41 @@ export default function Homepage() {
       <div
         className={`card flex-fill d-flex flex-column p-20 mb-20 ${styles.contentCard}`}
       >
-        {/* Début de la barre de recherche textuelle */}
-        <div
-          className={`d-flex flex-row justify-content-center align-item-center my-30 ${styles.searchBar}`}
-        >
-          <i className="fa-solid fa-magnifying-glass mr-15"></i>
-          <input
-            onInput={handleInput}
-            className="flex-fill"
-            type="text"
-            placeholder="Rechercher"
-          />
-        </div>
-        {/* Fin de la barre de recherche textuelle */}
+        <Search setFilter={setFilter} />
         {isLoading && !rentals.length ? (
           <Loading />
         ) : (
           <div className={styles.grid}>
             {rentals
-              .filter((r) => r.title.toLowerCase().startsWith(filter))
+              .filter((r) => r.title.toLowerCase().includes(filter))
               .map((r) => (
-                <Rental key={r.id} title={r.title} cover={r.cover} />
+                <div
+                  key={r._id}
+                  className={styles.rentalContainer}
+                  onMouseEnter={() => setIsHovered(true)}
+                  onMouseLeave={() => setIsHovered(false)}
+                >
+                  <div className={styles.rentalWrapper}>
+                    <Rental
+                      rental={r}
+                      deleteRental={deleteRental}
+                      updateLikeRental={updateLikeRental}
+                    />
+                  </div>
+                  {isHovered && (
+                    <div className={styles.link}>
+                      <NavLink
+                        to={{
+                          pathname: `/fiche/${r._id}`,
+                          state: { id: r._id },
+                        }}
+                        className={styles.link}
+                      >
+                        <i className="fa-solid fa-eye fa-beat-fade"></i>
+                      </NavLink>
+                    </div>
+                  )}
+                </div>
               ))}
           </div>
         )}

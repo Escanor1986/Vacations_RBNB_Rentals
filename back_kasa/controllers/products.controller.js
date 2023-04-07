@@ -1,60 +1,36 @@
-const Product = require("../models/product");
-// Utilisation du module 'memory-cache' pour stocker les résultats de la requête dans le cache.
-const cache = require("memory-cache");
-const mongoose = require("mongoose");
+const Product = require("../models/products.models");
+
+const rainbowify = (string) => {
+  // codes de couleur ANSI pour les couleurs de l'arc-en-ciel (rouge, jaune, vert, bleu, violet et cyan).
+  const colors = [
+    "\x1b[31m",
+    "\x1b[33m",
+    "\x1b[32m",
+    "\x1b[34m",
+    "\x1b[35m",
+    "\x1b[36m",
+  ];
+  let rainbowString = "";
+  // parcourt chaque caractère de la chaîne de caractères en utilisant une boucle for et ajoute
+  // à chaque fois le code de couleur correspondant à la position du caractère dans le tableau colors.
+  for (let i = 0; i < string.length; i++) {
+    rainbowString += colors[i % colors.length] + string[i];
+  }
+  return rainbowString;
+};
 
 // Récupération de TOUS les produits *************************************************************
 // ***********************************************************************************************
 
 exports.getAllProducts = async (req, res, next) => {
   try {
-    // Clé de cache pour les produits
-    const cacheKey = `products`;
+    const products = await Product.find({});
+    console.log(products.length);
 
-    // Vérifie si les produits sont en cache
-    let cachedData = cache.get(cacheKey);
-    if (!cachedData) {
-      // Si les produits ne sont pas en cache, les récupérer depuis la base de données
-      const products = await Product.find();
-
-      // Mappe les produits en ajoutant les propriétés nécessaires
-      const mappedProducts = products.map((product) => ({
-        id: product._id,
-        title: product.title,
-        cover: product.imageUrl.startsWith("https")
-          ? product.imageUrl // si l'URL est déjà complète, on la garde telle quelle
-          : `${process.env.BASE_URL}${product.imageUrl}`, // sinon on construit l'URL complète en concaténant
-        pictures: product.pictures.map(
-          (picture) =>
-            picture.startsWith("https")
-              ? picture // si l'URL est déjà complète, on la garde telle quelle
-              : `${process.env.BASE_URL}${picture}` // sinon on construit l'URL complète en concaténant
-        ),
-        description: product.description,
-        host: {
-          name: product.host.name,
-          picture: product.host.picture.startsWith("https")
-            ? product.host.picture // si l'URL est déjà complète, on la garde telle quelle
-            : `${process.env.BASE_URL}${product.host.picture}`, // sinon on construit l'URL complète en concaténant
-        },
-        rating: product.rating.toString(),
-        location: product.location,
-        equipments: product.equipments,
-        tags: product.tags,
-      }));
-
-      // Mettre les produits en cache
-      cachedData = {
-        products: mappedProducts,
-      };
-      cache.put(cacheKey, cachedData);
-    }
-
-    // Renvoie les produits
-    res.status(200).json(cachedData.products);
+    res.status(200).json(products);
   } catch (err) {
     console.error(err);
-    res.status(500).send(new Error("Database error: " + err.message));
+    res.status(500).send("Database error!");
   }
 };
 
@@ -64,39 +40,212 @@ exports.getAllProducts = async (req, res, next) => {
 exports.getOneProduct = async (req, res, next) => {
   try {
     const productId = req.params.id;
-    // Vérification de la validité de l'id du produit
-    if (!mongoose.Types.ObjectId.isValid(productId)) {
-      throw new Error("Invalid product ID");
-    }
-    // Ajout de la méthode lean() pour éviter de charger tout le document 'Mongoose'
-    // Ajout également de la méthode exec() pour renvoyer une Promise pour attendre la réponse de la database
-    const product = await Product.findById(productId).lean().exec();
-    if (!product) {
-      throw new Error("Product not found");
-    }
-    // Utilisation de la méthode freeze() pour verrouiller l'objet 'product' et empêcher les modification accidentelles
-    const safeProduct = Object.freeze({
-      id: product._id,
-      title: product.title,
-      cover: product.cover,
-      pictures: product.pictures,
-      description: product.description,
-      host: {
-        name: product.host.name,
-        picture: product.host.picture,
-      },
-      rating: product.rating,
-      location: product.location,
-      equipments: product.equipments,
-      tags: product.tags,
-      imageUrl: product.imageUrl.startsWith("https")
-        ? product.imageUrl // si l'URL est déjà complète, on la garde telle quelle
-        : `${process.env.BASE_URL}${product.imageUrl}`, // sinon on construit l'URL complète en concaténant
-    });
+    const product = await Product.findById(productId);
 
-    res.status(200).json(safeProduct);
+    if (!product) {
+      return res.status(404).json({ error: "Product not found!" });
+    }
+
+    res.status(200).json(product);
   } catch (err) {
     console.error(err);
-    res.status(400).json({ error: err.message });
+    res.status(500).json({ error: "Database error!" });
+  }
+};
+
+// Suppression D'UN SEUL produit *************************************************************
+// ***********************************************************************************************
+
+exports.deleteProduct = async (req, res, next) => {
+  try {
+    const productId = req.params.id;
+    const deletedProduct = await Product.findByIdAndDelete(productId);
+
+    if (!deletedProduct) {
+      return res.status(404).send(new Error("Product not found!"));
+    }
+
+    console.log(`Product ${productId} deleted from the database`);
+    res.status(204).send();
+  } catch (err) {
+    console.error(err);
+    res.status(500).send("Database error!");
+  }
+};
+
+// Création d'un produit *************************************************************
+// ***********************************************************************************************
+
+exports.createProduct = (req, res, next) => {
+  const productObject = req.body;
+  console.log(productObject);
+
+  if (
+    !productObject.title ||
+    !productObject.cover ||
+    !productObject.pictures ||
+    !productObject.description ||
+    !productObject.host.name ||
+    !productObject.host.picture ||
+    !productObject.location ||
+    !productObject.equipments ||
+    !productObject.tags
+  ) {
+    return res
+      .status(400)
+      .json({ error: rainbowify("Tous les champs doivent être renseignés") });
+  }
+
+  const product = new Product({
+    title: productObject.title,
+    liked: productObject.liked,
+    cover: productObject.cover,
+    pictures: productObject.pictures.split(","),
+    description: productObject.description,
+    host: {
+      name: productObject.host.name.trim(),
+      picture: productObject.host.picture.trim(),
+    },
+    rating: productObject.rating,
+    location: productObject.location,
+    equipments: productObject.equipments.split(","),
+    tags: productObject.tags.split(","),
+  });
+  console.log(product);
+
+  product
+    .save()
+    .then(() => {
+      res
+        .status(201)
+        .json({ message: rainbowify("Nouvelle location créée avec succès !") });
+    })
+    .catch((error) => {
+      res.status(500).json({ error: error });
+    });
+};
+
+// Gestion du like D'UN SEUL produit *************************************************************
+// ***********************************************************************************************
+
+exports.likeProduct = async (req, res, next) => {
+  try {
+    const productId = req.params.id;
+    const product = await Product.findById(productId);
+
+    if (!product) {
+      return res.status(404).send(new Error("Product not found!"));
+    }
+
+    product.liked = !product.liked;
+    await product.save();
+    console.log(product.liked);
+
+    console.log("Product updated !");
+    // Envoyer le produit mis à jour au client
+    res.status(200).json(product);
+  } catch (err) {
+    console.error(err);
+    res.status(500).send("Error updating product!");
+  }
+};
+
+// Mise à jour partielle ou totale d'un produit *************************************************************
+// ***********************************************************************************************
+
+exports.updateProduct = async (req, res, next) => {
+  try {
+    const productId = req.params.id;
+    const productObject = req.body;
+
+    if (
+      !productObject.title ||
+      !productObject.cover ||
+      !productObject.pictures ||
+      !productObject.description ||
+      !productObject.host.name ||
+      !productObject.host.picture ||
+      !productObject.location ||
+      !productObject.equipments ||
+      !productObject.tags
+    ) {
+      return res
+        .status(400)
+        .json({ error: rainbowify("Tous les champs doivent être renseignés") });
+    }
+
+    const product = await Product.findByIdAndUpdate(
+      productId,
+      {
+        title: productObject.title,
+        liked: productObject.liked,
+        cover: productObject.cover,
+        pictures: productObject.pictures,
+        description: productObject.description,
+        host: {
+          name: productObject.host.name.trim(),
+          picture: productObject.host.picture.trim(),
+        },
+        rating: productObject.rating,
+        location: productObject.location,
+        equipments: productObject.equipments,
+        tags: productObject.tags,
+      },
+      {
+        new: true, // retourne le document modifié plutôt que l'original
+        runValidators: true, // exécute les validations de schéma lors de la mise à jour
+      }
+    );
+
+    if (!product) {
+      return res.status(404).send(new Error("Product not found!"));
+    }
+
+    res.status(200).json({ product });
+  } catch (err) {
+    console.error(err);
+    res.status(500).send("Database error!");
+  }
+};
+
+// Récupération du produit suivant *************************************************************
+// ***********************************************************************************************
+
+exports.getNextProduct = async (req, res) => {
+  try {
+    const currentRentalId = req.params.currentRentalId;
+    const nextProduct = await Product.findOne({
+      _id: { $gt: currentRentalId },
+    }).sort({ _id: 1 });
+
+    if (nextProduct) {
+      res.status(200).json({ nextRentalId: nextProduct._id });
+    } else {
+      res.status(404).json({ message: "No next product found" });
+    }
+  } catch (error) {
+    console.error("Error fetching next product:", error);
+    res.status(500).json({ message: "Error fetching next product" });
+  }
+};
+
+// Récupération du produit précédent *************************************************************
+// ***********************************************************************************************
+
+exports.getPreviousProduct = async (req, res) => {
+  try {
+    const currentRentalId = req.params.currentRentalId;
+    const previousProduct = await Product.findOne({
+      _id: { $lt: currentRentalId },
+    }).sort({ _id: -1 });
+
+    if (previousProduct) {
+      res.status(200).json({ previousRentalId: previousProduct._id });
+    } else {
+      res.status(404).json({ message: "No previous product found" });
+    }
+  } catch (error) {
+    console.error("Error fetching previous product:", error);
+    res.status(500).json({ message: "Error fetching previous product" });
   }
 };
