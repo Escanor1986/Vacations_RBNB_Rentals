@@ -10,6 +10,8 @@ export async function getRentals(queryParam) {
   if (response.ok) {
     const body = await response.json();
     console.log("Liste des locations chargée avec succès !");
+    //  la fonction vérifie si le corps de la réponse est déjà un tableau
+    // Sinon, le corps de la réponse est enveloppé dans un tableau et renvoyé
     return Array.isArray(body) ? body : [body];
   } else {
     throw new Error("Error fetch Rentals");
@@ -20,7 +22,7 @@ export async function getRentals(queryParam) {
 export async function getRental(_id) {
   const response = await fetch(`${RENTAL_API}/${_id}`);
   if (response.ok) {
-    console.log("Location chargée avec succès !");
+    console.log(`Location : ${_id} chargée avec succès !`);
     return response.json();
   } else {
     throw new Error("Error fetch get one rental");
@@ -65,7 +67,7 @@ export async function deleteRental(_id) {
     method: "DELETE",
   });
   if (response.ok) {
-    console.log("Location supprimée !");
+    console.log(`Location supprimée : ${_id} !`);
     return _id;
   } else {
     throw new Error("Error fetch delete rental");
@@ -83,7 +85,7 @@ export async function updateLikeRental(updatedRental) {
     body: JSON.stringify(restRental),
   });
   if (response.ok) {
-    console.log('"Liked" mis à jour !');
+    console.log(`Liked mis à jour pour le produit : ${_id} !`);
     return response.json();
   } else {
     throw new Error("Error fetch update rental");
@@ -101,7 +103,7 @@ export async function updateRental(updatedRental) {
     body: JSON.stringify(restRental),
   });
   if (response.ok) {
-    console.log("Location mise à jour !");
+    console.log(`Location mise à jour pour le produit : ${_id} !`);
     return response.json();
   } else {
     throw new Error("Error fetch update rental");

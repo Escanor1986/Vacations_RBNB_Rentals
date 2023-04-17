@@ -214,9 +214,10 @@ exports.updateProduct = async (req, res, next) => {
 exports.getNextProduct = async (req, res) => {
   try {
     const currentRentalId = req.params.currentRentalId;
+    // Chercher le produit suivant par rapport à l'identifiant de location fourni
     const nextProduct = await Product.findOne({
-      _id: { $gt: currentRentalId },
-    }).sort({ _id: 1 });
+      _id: { $gt: currentRentalId }, // chercher un '_id' supérieur à celui fourni
+    }).sort({ _id: 1 }); // trier les résultats selon l'ordre croissant de l'_id
 
     if (nextProduct) {
       res.status(200).json({ nextRentalId: nextProduct._id });
@@ -235,9 +236,10 @@ exports.getNextProduct = async (req, res) => {
 exports.getPreviousProduct = async (req, res) => {
   try {
     const currentRentalId = req.params.currentRentalId;
+    // Chercher le produit précédent par rapport à l'identifiant de location fourni
     const previousProduct = await Product.findOne({
-      _id: { $lt: currentRentalId },
-    }).sort({ _id: -1 });
+      _id: { $lt: currentRentalId }, // chercher un '_id' inférieur à celui fourni
+    }).sort({ _id: -1 }); // trier les résultats selon l'ordre décroissant de l'_id
 
     if (previousProduct) {
       res.status(200).json({ previousRentalId: previousProduct._id });

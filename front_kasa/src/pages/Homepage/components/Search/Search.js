@@ -3,7 +3,7 @@ import styles from "./Search.module.scss";
 function Search({ setFilter }) {
   function handleInput(e) {
     const filter = e.target.value;
-    setFilter(filter.trim().toLowerCase()); // ici la méthode "trim()" permet de retirer les espaces vide dans la chaîne de caractère
+    setFilter(filter.trim().toLowerCase());
   }
 
   return (

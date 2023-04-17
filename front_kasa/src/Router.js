@@ -8,9 +8,15 @@ const Homepage = lazy(() => import("./pages/Homepage/Homepage"));
 const Apropos = lazy(() => import("./pages/APropos/APropos"));
 const NotFound = lazy(() => import("./pages/NotFound/NotFound"));
 const Admin = lazy(() => import("./pages/Admin/Admin"));
+// Déclaration d'une variable `AdminRentals` contenant un composant chargé de manière paresseuse
+// le "lazycomponent" est chargé le temps que le composant principal soit chargé
 const AdminRentals = lazy(() =>
+  // Fonction anonyme qui renvoie l'importation dynamique du composant "AdminRentals"
+  // Lorsque le composant principal est appelé dans l'app, il l'est de manière asynchrone
+  // ==> performance ++ // Il sera chargé en arrière plan sans bloqué le rendu de la page
   import("./pages/Admin/pages/AdminRentals/AdminRentals")
 );
+
 const AdminUsers = lazy(() =>
   import("./pages/Admin/pages/AdminUsers/AdminUsers")
 );

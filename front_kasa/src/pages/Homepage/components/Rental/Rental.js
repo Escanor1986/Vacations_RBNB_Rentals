@@ -3,13 +3,13 @@ import styles from "./Rental.module.scss";
 function Rental({ rental, updateLikeRental, deleteRental }) {
   function handleClickLike() {
     updateLikeRental({
-      ...rental,
-      liked: !rental.liked,
+      ...rental, // on utilise le spread operator pour effcetuer une shallow copy de rental
+      liked: !rental.liked, // On y modifie ensuite "liked" dans la database
     });
   }
 
   async function handleClickDelete(e) {
-    // la stop la propagation car nous sommes déjà à l'intérieur d'un élément pour lequel l'on écoute un évènement
+    // la stop la propagation car à l'intérieur d'un élément pour lequel l'on écoute le handleClickLike
     e.stopPropagation();
     deleteRental(rental._id);
   }
