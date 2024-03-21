@@ -1,10 +1,16 @@
 .searchBar {
   padding: 10px 15px;
-  border: 2px solid var(--primary);
+  border: 4px inset var(--primary);
   border-radius: 20px;
+  box-shadow: rgba(113, 139, 252, 0.4) 0px 5px,
+    rgba(113, 139, 252, 0.3) 0px 10px, rgba(113, 139, 252, 0.2) 0px 15px,
+    rgba(113, 139, 252, 0.1) 0px 20px, rgba(113, 139, 252, 0.05) 0px 25px;
+
   input {
-    background-color: var(--gray-2);
+    background-color: var(--background-color);
     color: var(--primary);
+    box-shadow: rgba(50, 50, 93, 0.096) 0px 30px 60px -12px inset,
+      rgba(0, 0, 0, 0.3) 0px 18px 36px -18px inset;
     font-weight: 500;
     font-size: 16px;
     outline: 0;

@@ -1,5 +1,5 @@
 import styles from "./Footer.module.scss";
-import LOGO from "../../assets/images/LOGO_FOOTER.png";
+import LOGO from "../../assets/images/Logo_1.png";
 
 function Footer() {
   return (
@@ -8,9 +8,9 @@ function Footer() {
     >
       <div className="d-flex flex-column align-items-center justify-content-center">
         <div>
-          <img src={LOGO} alt="Logo Kasa" />
+          <img src={LOGO} alt="Logo" />
         </div>
-        <p>Copyright © 2023 Kasa Escanor, Inc.</p>
+        <p>Copyright © 2023 Escanor, Inc.</p>
       </div>
     </footer>
   );

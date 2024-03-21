@@ -1,11 +1,11 @@
 import styles from "./Header.module.scss";
-import LOGO from "../../assets/images/LOGO.png";
-// import { useState } from "react";
-// import HeaderMenu from "./components/HeaderMenu/HeaderMenu";
+import LOGO from "../../assets/images/Logo_1.png";
+import { useState } from "react";
+import HeaderMenu from "./components/HeaderMenu/HeaderMenu";
 import { NavLink } from "react-router-dom";
 
 function Header() {
-  // const [showMenu, setShowMenu] = useState(false);
+  const [showMenu, setShowMenu] = useState(false);
 
   return (
     <header className={`${styles.header} d-flex flex-row align-items-center`}>
@@ -17,36 +17,36 @@ function Header() {
       <ul className={`${styles.headerList}`}>
         <NavLink className="btn" to="/">
           <button className="btn btn-reverse-primary">
-            {/*             <i className="fa-solid fa-house mr-15"></i> */}
+            <i className="fa-solid fa-house mr-15"></i>
             <span>Accueil</span>
           </button>
         </NavLink>
         <NavLink className="btn" to="/apropos">
           <button className="btn btn-reverse-primary">
-            {/*             <i className="fa-solid fa-book-open mr-15"></i> */}
+            <i className="fa-solid fa-book-open mr-15"></i>
             <span>A propos</span>
           </button>
         </NavLink>
-        {/*         <NavLink className="btn" to="/">
+        <NavLink className="btn" to="/">
           <button className="btn btn-reverse-primary">
             <i className="fa-solid fa-heart mr-15"></i>
             <span>Wishlist</span>
           </button>
-        </NavLink> */}
-        {/*         <NavLink className="btn" to="/admin">
+        </NavLink>
+        <NavLink className="btn" to="/admin">
           <button className="btn btn-reverse-primary">
-                        <i className="fa-solid fa-lock mr-15"></i>
+            <i className="fa-solid fa-lock mr-15"></i>
             <span>Admin</span>
           </button>
-        </NavLink> */}
-        {/*         <NavLink className="btn" to="/">
+        </NavLink>
+        <NavLink className="btn" to="/">
           <button className="btn btn-primary">
             <i className="fa-solid fa-right-to-bracket mr-15"></i>
             <span>Connexion</span>
           </button>
-        </NavLink> */}
+        </NavLink>
       </ul>
-      {/* <i
+      <i
         onClick={() => setShowMenu(true)}
         className={`fa-solid fa-bars ${styles.headerXs}`}
       ></i>
@@ -55,7 +55,7 @@ function Header() {
           <div onClick={() => setShowMenu(false)} className="calc"></div>
           <HeaderMenu />
         </>
-      )} */}
+      )}
     </header>
   );
 }

@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import styles from "./Homepage.module.scss";
-import TOP_CONTENT from "../../assets/images/Top_Content_Img.png";
+import TOP_CONTENT from "../../assets/images/Top_Content_img_3.png";
 import Rental from "./components/Rental/Rental";
 import Loading from "../../components/Loading/Loading";
 import Search from "./components/Search/Search";
@@ -22,14 +22,14 @@ export default function Homepage() {
   async function updateLikeRental(updatedLikeRental) {
     const savedLikeRental = await updateLikeR(updatedLikeRental);
     setRentals(
-      rentals.map((r) => (r._id === savedLikeRental._id ? savedLikeRental : r))
+      rentals.map(r => (r._id === savedLikeRental._id ? savedLikeRental : r))
     );
   }
 
   // fonction pour la suppression d'une location (récupéré depuis ../../apis)
   async function deleteRental(_id) {
     await deleteR(_id);
-    setRentals(rentals.filter((r) => r._id !== _id));
+    setRentals(rentals.filter(r => r._id !== _id));
   }
 
   return (
@@ -51,10 +51,10 @@ export default function Homepage() {
         {isLoading && !rentals.length ? (
           <Loading />
         ) : (
-          <div className={styles.grid}>
+          <div className={`mt-15 ${styles.grid}`}>
             {rentals
-              .filter((r) => r.title.toLowerCase().includes(filter))
-              .map((r) => (
+              .filter(r => r.title.toLowerCase().includes(filter))
+              .map(r => (
                 <div
                   key={r._id}
                   className={styles.rentalContainer}
