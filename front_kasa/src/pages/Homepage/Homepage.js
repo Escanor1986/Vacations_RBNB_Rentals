@@ -33,7 +33,7 @@ export default function Homepage() {
   }
 
   return (
-    <div className="flex-fill container d-flex flex-column p-30">
+    <div className="flex-fill container d-flex flex-column align-items-center p-30">
       <div className={`my-40 ${styles.mainImageContainer}`}>
         <img
           className={`${styles.mainImage}`}
@@ -45,7 +45,7 @@ export default function Homepage() {
         </span>
       </div>
       <div
-        className={`card flex-fill d-flex flex-column p-20 mb-20 ${styles.contentCard}`}
+        className={`card flex-fill d-flex flex-column align-items-center p-20 mb-20 ${styles.contentCard}`}
       >
         <Search setFilter={setFilter} />
         {isLoading && !rentals.length ? (

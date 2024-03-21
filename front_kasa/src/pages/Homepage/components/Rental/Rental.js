@@ -9,7 +9,6 @@ function Rental({ rental, updateLikeRental, deleteRental }) {
   }
 
   async function handleClickDelete(e) {
-    // la stop la propagation car à l'intérieur d'un élément pour lequel l'on écoute le handleClickLike
     e.stopPropagation();
     deleteRental(rental._id);
   }
@@ -19,16 +18,16 @@ function Rental({ rental, updateLikeRental, deleteRental }) {
       <i onClick={handleClickDelete} className="fa-solid fa-xmark"></i>
       <div className={styles.imageContainer}>
         <img src={rental.cover} alt="rental" />
-        <div
-          className={`${styles.rentalTitle} d-flex flex-row justify-content-between align-items-center`}
-        >
-          <h3 className="mr-15">{rental.title}</h3>
-          <i
-            className={` fa-solid fa-heart ${
-              rental.liked ? "text-primary" : ""
-            } `}
-          ></i>
-        </div>
+      </div>
+      <div
+        className={`${styles.rentalTitle} mt-15 p-10 d-flex flex-row justify-content-between align-items-start`}
+      >
+        <h3 className="mr-15">{rental.title}</h3>
+        <i
+          className={`fa-solid fa-heart font-s-25px ${
+            rental.liked ? "text-primary font-s-40px" : ""
+          } `}
+        ></i>
       </div>
     </div>
   );

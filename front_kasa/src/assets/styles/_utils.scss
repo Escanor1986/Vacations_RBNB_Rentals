@@ -86,10 +86,6 @@
   margin-top: 20px;
 }
 
-.mt-15 {
-  margin-top: 15px;
-}
-
 .mt-40 {
   margin-top: 40px;
 }
@@ -101,6 +97,11 @@
 .my-10 {
   margin-bottom: 10px;
   margin-top: 10px;
+}
+
+.my-15 {
+  margin-bottom: 15px;
+  margin-top: 15px;
 }
 
 .my-20 {
@@ -142,9 +143,16 @@
   margin-right: 120px;
   margin-left: 120px;
 }
+.font-s-25px {
+  font-size: 25px;
+}
+
+.font-s-40px {
+  font-size: 40px;
+}
 
 .container {
-  max-width: 1240px;
+  max-width: 1650px;
   margin: auto;
   width: 100%;
 }

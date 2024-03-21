@@ -1,20 +1,22 @@
 @use "../../assets/styles/mixins" as mixin;
 
 .mainImageContainer {
-  max-width: 100%;
-  height: 223px;
+  max-width: 1300px;
+  width: 100%;
+  display: flex;
+  height: 300px;
   position: relative;
 
   @media (max-width: 500px) {
-    height: 154px;
+    height: 174px;
   }
 
   @media (min-width: 768px) {
-    height: 200px;
+    height: 230px;
   }
 
   @media (min-width: 992px) {
-    height: 223px;
+    height: 300px;
   }
 }
 
@@ -22,7 +24,7 @@
   background: #000000;
   border-radius: 25px;
   width: 100%;
-  max-height: 223px;
+  max-height: 300px;
   height: 100%;
   mix-blend-mode: darken;
   object-position: 50% 50%;
@@ -40,7 +42,7 @@
   left: 50%;
   top: 50%;
   transform: translate(-50%, -50%);
-  color: white;
+  color: var(--primary);
   font-family: "Montserrat";
   font-style: normal;
   font-weight: 500;
@@ -100,9 +102,13 @@
 .grid {
   display: grid;
   place-content: center;
-  grid-template-columns: repeat(3, 350px);
-  grid-auto-columns: repeat(3, 350px);
+  grid-template-columns: repeat(4, 350px);
+  grid-auto-columns: repeat(4, 350px);
   gap: 20px;
+  @include mixin.xl-lt {
+    grid-template-columns: repeat(3, 350px);
+    grid-auto-columns: repeat(3, 350px);
+  }
   @include mixin.lg-lt {
     grid-template-columns: repeat(2, 350px);
     grid-auto-columns: repeat(2, 350px);
@@ -118,7 +124,7 @@
 }
 
 .contentCard {
-  max-width: 1240px;
+  // max-width: 1240px;
   width: 100%;
   // max-height: 829px;
   background-color: #f7f7f7;
