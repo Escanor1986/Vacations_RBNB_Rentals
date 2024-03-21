@@ -87,9 +87,47 @@ $button-opacity: 0; // Opacité initiale des boutons
 
 .text-primary {
   color: var(--purple-high);
+  transition: all 0.6s ease;
+}
+
+.text-primary:hover {
   text-shadow: 0 0 7px #fff, 0 0 10px #fff, 0 0 21px #fff,
     0 0 42px var(--purple-high), 0 0 82px var(--purple-high),
     0 0 92px var(--purple-high), 0 0 102px var(--purple-high);
+}
+
+.fa-heart {
+  animation: heartBeat 0.6s ease;
+  transform-style: preserve-3d;
+  transition: all 0.6s ease;
+}
+
+@keyframes heartBeat {
+  0% {
+    transform: scale3d(1, 1, 1);
+  }
+  50% {
+    transform: scale3d(1.2, 1.2, 1.2) rotate3d(1, 1, 1, 45deg);
+  }
+  100% {
+    transform: scale3d(1, 1, 1);
+  }
+}
+
+.fa-heart.clicked {
+  animation: explode 0.6s ease;
+}
+
+@keyframes explode {
+  0% {
+    transform: scale3d(1, 1, 1);
+  }
+  50% {
+    transform: scale3d(1.5, 1.5, 1.5) rotate3d(1, 1, 1, 360deg);
+  }
+  100% {
+    transform: scale3d(1, 1, 1);
+  }
 }
 
 label {
