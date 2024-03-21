@@ -1,6 +1,6 @@
 const Product = require("../models/products.models");
 
-const rainbowify = (string) => {
+const rainbowify = string => {
   // codes de couleur ANSI pour les couleurs de l'arc-en-ciel (rouge, jaune, vert, bleu, violet et cyan).
   const colors = [
     "\x1b[31m",
@@ -120,7 +120,7 @@ exports.createProduct = (req, res, next) => {
         .status(201)
         .json({ message: rainbowify("Nouvelle location créée avec succès !") });
     })
-    .catch((error) => {
+    .catch(error => {
       res.status(500).json({ error: error });
     });
 };
@@ -157,6 +157,7 @@ exports.updateProduct = async (req, res, next) => {
   try {
     const productId = req.params.id;
     const productObject = req.body;
+    console.log(productId, productObject);
 
     if (
       !productObject.title ||
