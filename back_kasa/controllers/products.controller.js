@@ -139,7 +139,6 @@ exports.likeProduct = async (req, res, next) => {
 
     product.liked = !product.liked;
     await product.save();
-    console.log(product.liked);
 
     console.log("Product updated !");
     // Envoyer le produit mis à jour au client
@@ -157,7 +156,7 @@ exports.updateProduct = async (req, res, next) => {
   try {
     const productId = req.params.id;
     const productObject = req.body;
-    console.log(productId, productObject);
+    // console.log(productId, productObject);
 
     if (
       !productObject.title ||
@@ -201,7 +200,7 @@ exports.updateProduct = async (req, res, next) => {
     if (!product) {
       return res.status(404).send(new Error("Product not found!"));
     }
-
+    console.log(`Product : ${product} well updated !`);
     res.status(200).json({ product });
   } catch (err) {
     console.error(err);

@@ -8,7 +8,7 @@ function AdminRentals() {
       <h4 className="mb-20">Gestion des locations</h4>
       <div className="flex-fill d-flex flex-column">
         <AdminRentalsNav />
-        <div className="flex-fill d-flex flex-column">
+        <div className="flex-fill d-flex align-items-center flex-column">
           <Suspense>
             <Outlet />
           </Suspense>

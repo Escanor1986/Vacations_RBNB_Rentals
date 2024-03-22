@@ -6,6 +6,7 @@ import { Formik, Form, Field, ErrorMessage } from "formik";
 import { createRental, updateRental } from "../../../../../../apis";
 
 function AdminRentalsForm() {
+  // This hook provides the value returned from your route loader.
   const rental = useLoaderData();
   const navigate = useNavigate();
 
@@ -42,9 +43,16 @@ function AdminRentalsForm() {
       .required("Il faut renseigner une image")
       .url("L'image doit être un lien valide"),
     pictures: yup
-      .array()
-      .of(yup.string().url("L'image doit être un lien valide"))
-      .min(1, "Il faut renseigner au moins une image"),
+      .mixed()
+      .required("Il faut renseigner au moins une image")
+      .test("is-array", "Images must be a valid array.", val =>
+        Array.isArray(val)
+      )
+      .transform((value, originalValue) => {
+        return Array.isArray(originalValue)
+          ? originalValue
+          : value.split(",").map(e => e.trim());
+      }),
     description: yup
       .string()
       .required("La description de la location doit être renseignée")
@@ -64,19 +72,34 @@ function AdminRentalsForm() {
     rating: yup.number(),
     location: yup.string().required("La location doit être renseignée"),
     equipments: yup
-      .array()
-      .of(yup.string())
-      .min(1, "Il faut renseigner au moins un équipement"),
+      .mixed()
+      .required("Il faut renseigner au moins un équipement")
+      .test("is-array", "Equipments must be a valid array.", val =>
+        Array.isArray(val)
+      )
+      .transform((value, originalValue) => {
+        return Array.isArray(originalValue)
+          ? originalValue
+          : value.split(",").map(e => e.trim());
+      }),
     tags: yup
-      .array()
-      .of(yup.string())
-      .min(1, "Il faut renseigner au moins un tag"),
+      .mixed()
+      .required("Il faut renseigner au moins un tag")
+      .test("is-array", "Tags must be a valid array.", val =>
+        Array.isArray(val)
+      )
+      .transform((value, originalValue) => {
+        return Array.isArray(originalValue)
+          ? originalValue
+          : value.split(",").map(e => e.trim());
+      }),
   });
 
   const renderError = message => <p className="help is-danger">{message}</p>;
 
   return (
     <Formik
+      className="d-flex justify-content-center"
       initialValues={initialValues}
       validationSchema={validationSchema}
       onSubmit={async (values, { resetForm, setFieldError }) => {

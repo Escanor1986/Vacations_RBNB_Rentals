@@ -112,6 +112,7 @@ export async function updateRental(updatedRental) {
 
 // fonction pour la création d'une location
 export async function createRental(newRental) {
+  console.log(newRental);
   const response = await fetch(RENTAL_API, {
     method: "POST",
     headers: {
