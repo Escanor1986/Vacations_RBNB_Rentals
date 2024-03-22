@@ -2,6 +2,7 @@ import { lazy } from "react";
 import { createBrowserRouter, redirect } from "react-router-dom";
 import App from "./App";
 import { getRental } from "./apis";
+import WishList from "./pages/WishList/WishList";
 
 const FicheLogement = lazy(() => import("./pages/FicheLogement/FicheLogement"));
 const Homepage = lazy(() => import("./pages/Homepage/Homepage"));
@@ -43,6 +44,10 @@ export const router = createBrowserRouter([
       {
         path: "apropos",
         element: <Apropos />,
+      },
+      {
+        path: "wishlist",
+        element: <WishList />,
       },
       {
         path: "fiche/:id",

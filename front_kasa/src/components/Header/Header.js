@@ -27,7 +27,7 @@ function Header() {
             <span>A propos</span>
           </button>
         </NavLink>
-        <NavLink className="btn" to="/">
+        <NavLink className="btn" to="/wishlist">
           <button className="btn btn-reverse-primary">
             <i className="fa-solid fa-heart mr-15"></i>
             <span>Wishlist</span>
