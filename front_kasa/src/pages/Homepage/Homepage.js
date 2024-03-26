@@ -53,17 +53,17 @@ export default function Homepage() {
         ) : (
           <div className={`mt-15 ${styles.grid}`}>
             {rentals
-              .filter(r => r.title.toLowerCase().includes(filter))
-              .map(r => (
+              .filter(rental => rental.title.toLowerCase().includes(filter))
+              .map(rental => (
                 <div
-                  key={r._id}
+                  key={rental._id}
                   className={styles.rentalContainer}
                   onMouseEnter={() => setIsHovered(true)}
                   onMouseLeave={() => setIsHovered(false)}
                 >
                   <div className={styles.rentalWrapper}>
                     <Rental
-                      rental={r}
+                      rental={rental}
                       deleteRental={deleteRental}
                       updateLikeRental={updateLikeRental}
                     />
@@ -72,8 +72,8 @@ export default function Homepage() {
                     <div className={styles.link}>
                       <NavLink
                         to={{
-                          pathname: `/fiche/${r._id}`,
-                          state: { id: r._id },
+                          pathname: `/fiche/${rental._id}`,
+                          state: { id: rental._id },
                         }}
                         className={styles.link}
                       >
