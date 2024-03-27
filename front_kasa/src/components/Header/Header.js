@@ -39,10 +39,16 @@ function Header() {
             <span>Admin</span>
           </button>
         </NavLink>
-        <NavLink className="btn" to="/">
-          <button className="btn btn-primary">
+        <NavLink className="btn" to="/login">
+          <button className="btn btn-reverse-primary">
             <i className="fa-solid fa-right-to-bracket mr-15"></i>
-            <span>Connexion</span>
+            <span>Login</span>
+          </button>
+        </NavLink>
+        <NavLink className="btn" to="/signup">
+          <button className="btn btn-reverse-primary">
+            <i className="fa-solid fa-user-plus mr-15"></i>
+            <span>Sign Up</span>
           </button>
         </NavLink>
       </ul>

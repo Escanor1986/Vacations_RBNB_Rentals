@@ -1,5 +1,9 @@
 @use "../../assets/styles/mixins" as mixin;
 
+h1 {
+  margin-bottom: 20px;
+}
+
 .mainImageContainer {
   width: 95%;
   height: 223px;

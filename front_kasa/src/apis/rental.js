@@ -2,6 +2,50 @@ const RENTAL_API = "http://localhost:4000/api/products";
 
 // getRentals est exporté vers hooks/useFetchRentals.js
 
+// Fonction pour effectuer l'appel API de login
+export async function login(username, password) {
+  try {
+    const response = await fetch("http://localhost:4000/api/user/login", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ username, password }),
+    });
+
+    if (!response.ok) {
+      const errorMessage = await response.text();
+      throw new Error(errorMessage);
+    }
+
+    const { token } = await response.json();
+    return token;
+  } catch (error) {
+    throw new Error("Failed to login: " + error.message);
+  }
+}
+
+// Fonction pour effectuer l'appel API de signup
+export async function signup(email, password) {
+  try {
+    const response = await fetch("http://localhost:4000/api/user/signup", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ email, password }),
+    });
+
+    if (!response.ok) {
+      const errorMessage = await response.text();
+      throw new Error(errorMessage);
+    }
+    return "Signup successful!";
+  } catch (error) {
+    throw new Error("Failed to signup: " + error.message);
+  }
+}
+
 // fonction pour l'affichage de toutes les locations'
 export async function getRentals(queryParam) {
   const response = await fetch(

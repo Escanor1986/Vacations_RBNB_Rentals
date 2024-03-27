@@ -12,7 +12,7 @@ function App() {
       <div className="flex-fill d-flex flex-column">
         {/* Suspense est utilisé pour retarder le rendu de la page jusqu'à ce que tous les 
         composants nécessaires soient chargés */}
-        <Suspense>
+        <Suspense fallback={<div>Loading...</div>}>
           {/* Outlet permet de rendre dynamiquement des composants selon le
           chemin de l'URL actuelle */}
           <Outlet />

@@ -14,7 +14,9 @@ function HeaderMenu() {
       <li>
         <NavLink to="/admin">Admin</NavLink>
       </li>
-      <li>Connexion</li>
+      <li>
+        <NavLink to="/login">Connexion</NavLink>
+      </li>
     </ul>
   );
 }

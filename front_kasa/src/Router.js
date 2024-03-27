@@ -3,21 +3,18 @@ import { createBrowserRouter, redirect } from "react-router-dom";
 import App from "./App";
 import { getRental } from "./apis";
 import WishList from "./pages/WishList/WishList";
+import SignupPage from "./pages/SignUp/SignUp";
+import RouteGuard from "./RouteGuard"; // Importez votre RouteGuard
 
+const LoginPage = lazy(() => import("./pages/LoginPage/LoginPage"));
 const FicheLogement = lazy(() => import("./pages/FicheLogement/FicheLogement"));
 const Homepage = lazy(() => import("./pages/Homepage/Homepage"));
 const Apropos = lazy(() => import("./pages/APropos/APropos"));
 const NotFound = lazy(() => import("./pages/NotFound/NotFound"));
 const Admin = lazy(() => import("./pages/Admin/Admin"));
-// Déclaration d'une variable `AdminRentals` contenant un composant chargé de manière paresseuse
-// le "lazycomponent" est chargé le temps que le composant principal soit chargé
 const AdminRentals = lazy(() =>
-  // Fonction anonyme qui renvoie l'importation dynamique du composant "AdminRentals"
-  // Lorsque le composant principal est appelé dans l'app, il l'est de manière asynchrone
-  // ==> performance ++ // Il sera chargé en arrière plan sans bloqué le rendu de la page
   import("./pages/Admin/pages/AdminRentals/AdminRentals")
 );
-
 const AdminUsers = lazy(() =>
   import("./pages/Admin/pages/AdminUsers/AdminUsers")
 );
@@ -40,6 +37,14 @@ export const router = createBrowserRouter([
       {
         index: true,
         element: <Homepage />,
+      },
+      {
+        path: "login",
+        element: <LoginPage />,
+      },
+      {
+        path: "signup",
+        element: <SignupPage />,
       },
       {
         path: "apropos",
@@ -83,7 +88,7 @@ export const router = createBrowserRouter([
           },
           {
             path: "users",
-            element: <AdminUsers />,
+            element: <RouteGuard component={AdminUsers} requiresAuth />,
           },
           {
             index: true,
@@ -98,3 +103,5 @@ export const router = createBrowserRouter([
     ],
   },
 ]);
+
+export default router;

@@ -38,7 +38,7 @@ function WishList() {
       <div
         className={`mb-20 flex-fill d-flex flex-column align-items-center ${styles.dropDownContainer}`}
       >
-        <h1>WishLists</h1>
+        <h1>Welcome on your WishList !</h1>
         <div
           className={`card flex-fill d-flex flex-column align-items-center p-20 mb-20 ${styles.contentCard}`}
         >

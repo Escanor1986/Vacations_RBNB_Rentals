@@ -48,6 +48,9 @@ $button-opacity: 0; // Opacité initiale des boutons
   &:nth-child(5) {
     animation-delay: 0.5s;
   }
+  &:nth-child(6) {
+    animation-delay: 0.6s;
+  }
 }
 
 .btn-primary {
