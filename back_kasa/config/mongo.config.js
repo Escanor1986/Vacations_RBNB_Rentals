@@ -1,5 +1,4 @@
 const mongoose = require("mongoose");
-const { app } = require("../app");
 
 // Connexion à MongoDB avec la variable d'environnement
 mongoose.set("strictQuery", false);

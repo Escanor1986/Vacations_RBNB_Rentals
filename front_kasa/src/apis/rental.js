@@ -5,7 +5,7 @@ const RENTAL_API = "http://localhost:4000/api/products";
 // Fonction pour effectuer l'appel API de login
 export async function login(username, password) {
   try {
-    const response = await fetch("http://localhost:4000/api/user/login", {
+    const response = await fetch("http://localhost:4000/api/login", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -28,7 +28,7 @@ export async function login(username, password) {
 // Fonction pour effectuer l'appel API de signup
 export async function signup(email, password) {
   try {
-    const response = await fetch("http://localhost:4000/api/user/signup", {
+    const response = await fetch("http://localhost:4000/api/signup", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

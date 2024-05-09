@@ -1,6 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const productCtrl = require("../controllers/products.controller");
+const auth = require("../config/auth");
 
 // Utilisation d'un middleware pour valider les ID de produits
 router.param("id", (req, res, next, id) => {
