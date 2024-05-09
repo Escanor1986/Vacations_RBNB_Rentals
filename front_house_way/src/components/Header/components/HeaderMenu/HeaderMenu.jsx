@@ -5,17 +5,17 @@ function HeaderMenu() {
   return (
     <ul className={`${styles.MenuContainer} card p-20`}>
       <li>
-        <NavLink to="/">Accueil</NavLink>
+        <NavLink to="/#/">Accueil</NavLink>
       </li>
       <li>
-        <NavLink to="/apropos">A Propos</NavLink>
+        <NavLink to="/#/apropos">A Propos</NavLink>
       </li>
       <li>Wishlist</li>
       <li>
-        <NavLink to="/admin">Admin</NavLink>
+        <NavLink to="/#/admin">Admin</NavLink>
       </li>
       <li>
-        <NavLink to="/login">Connexion</NavLink>
+        <NavLink to="/#/login">Connexion</NavLink>
       </li>
     </ul>
   );

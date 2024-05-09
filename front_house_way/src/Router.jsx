@@ -1,5 +1,6 @@
+/* eslint-disable react-refresh/only-export-components */
 import { lazy } from "react";
-import { createBrowserRouter, redirect } from "react-router-dom";
+import { createHashRouter, redirect } from "react-router-dom"; // Utilisez createHashRouter
 import App from "./App";
 import { getRental } from "./apis";
 import WishList from "./pages/WishList/WishList";
@@ -29,7 +30,9 @@ const AdminRentalsForm = lazy(() =>
   )
 );
 
-export const router = createBrowserRouter([
+export const router = createHashRouter([
+  // Utilisation de createHashRouter à la place de createBrowserRouter
+  // pour éviter le problème de redirect sur 404 lors du build et de la mise en prod
   {
     path: "/",
     element: <App />,
