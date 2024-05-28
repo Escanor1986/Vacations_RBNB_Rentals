@@ -7,7 +7,7 @@ name: CI Project - CD to GitHub Pages
       - "*"
 defaults:
   run:
-    working-directory: kasa/front_house_way
+    working-directory: front_house_way
 permissions:
   contents: read
   pages: write
@@ -18,6 +18,8 @@ jobs:
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v3
+      - name: Running ls
+        run: ls -al
       - name: Setup Node.js
         uses: actions/setup-node@v3
         with:
@@ -60,7 +62,7 @@ jobs:
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v2
         with:
-          path: ./kasa/front_house_way/dist/
+          path: ./front_house_way/dist/
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v1
