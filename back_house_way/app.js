@@ -1,4 +1,5 @@
 const path = require("path");
+require("dotenv").config();
 const express = require("express");
 const cors = require("cors");
 const helmet = require("helmet");
@@ -39,7 +40,7 @@ require("./config/mongo.config");
 // Configuration de CORS
 const allowedOrigins = process.env.ALLOWED_ORIGINS
   ? process.env.ALLOWED_ORIGINS.split(",")
-  : ["http://localhost:5173"];
+  : ["http://localhost:5173", "https://escanor1986.github.io"];
 
 app.use(
   cors({
