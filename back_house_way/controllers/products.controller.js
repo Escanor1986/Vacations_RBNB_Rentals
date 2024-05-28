@@ -1,7 +1,6 @@
 const Product = require("../models/products.models");
 
 const rainbowify = string => {
-  // codes de couleur ANSI pour les couleurs de l'arc-en-ciel (rouge, jaune, vert, bleu, violet et cyan).
   const colors = [
     "\x1b[31m",
     "\x1b[33m",
@@ -11,8 +10,6 @@ const rainbowify = string => {
     "\x1b[36m",
   ];
   let rainbowString = "";
-  // parcourt chaque caractère de la chaîne de caractères en utilisant une boucle for et ajoute
-  // à chaque fois le code de couleur correspondant à la position du caractère dans le tableau colors.
   for (let i = 0; i < string.length; i++) {
     rainbowString += colors[i % colors.length] + string[i];
   }
@@ -25,7 +22,6 @@ const rainbowify = string => {
 exports.getAllProducts = async (req, res, next) => {
   try {
     const products = await Product.find({});
-    console.log(products.length);
 
     res.status(200).json(products);
   } catch (err) {
@@ -65,7 +61,6 @@ exports.deleteProduct = async (req, res, next) => {
       return res.status(404).send(new Error("Product not found!"));
     }
 
-    console.log(`Product ${productId} deleted from the database`);
     res.status(204).send();
   } catch (err) {
     console.error(err);
@@ -76,9 +71,9 @@ exports.deleteProduct = async (req, res, next) => {
 // Création d'un produit *************************************************************
 // ***********************************************************************************************
 
-exports.createProduct = (req, res, next) => {
+exports.createProduct = async (req, res, next) => {
   const productObject = req.body;
-  console.log(productObject);
+  console.log("Product Object:", productObject);
 
   if (
     !productObject.title ||
@@ -96,33 +91,32 @@ exports.createProduct = (req, res, next) => {
       .json({ error: rainbowify("Tous les champs doivent être renseignés") });
   }
 
-  const product = new Product({
-    title: productObject.title,
-    liked: productObject.liked,
-    cover: productObject.cover,
-    pictures: productObject.pictures.split(","),
-    description: productObject.description,
-    host: {
-      name: productObject.host.name.trim(),
-      picture: productObject.host.picture.trim(),
-    },
-    rating: productObject.rating,
-    location: productObject.location,
-    equipments: productObject.equipments.split(","),
-    tags: productObject.tags.split(","),
-  });
-  console.log(product);
-
-  product
-    .save()
-    .then(() => {
-      res
-        .status(201)
-        .json({ message: rainbowify("Nouvelle location créée avec succès !") });
-    })
-    .catch(error => {
-      res.status(500).json({ error: error });
+  try {
+    const product = new Product({
+      title: productObject.title,
+      liked: productObject.liked,
+      cover: productObject.cover,
+      pictures: productObject.pictures.split(","),
+      description: productObject.description,
+      host: {
+        name: productObject.host.name.trim(),
+        picture: productObject.host.picture.trim(),
+      },
+      rating: productObject.rating,
+      location: productObject.location,
+      equipments: productObject.equipments.split(","),
+      tags: productObject.tags.split(","),
+      userId: req.auth.userId,
     });
+
+    console.log("Saving Product:", product);
+
+    await product.save();
+    res.status(201).json({ message: rainbowify("Nouvelle location créée avec succès !") });
+  } catch (error) {
+    console.error("Error saving product:", error);
+    res.status(500).json({ error: "Erreur interne du serveur" });
+  }
 };
 
 // Gestion du like D'UN SEUL produit *************************************************************
@@ -140,7 +134,6 @@ exports.likeProduct = async (req, res, next) => {
     product.liked = !product.liked;
     await product.save();
 
-    console.log("Product updated !");
     // Envoyer le produit mis à jour au client
     res.status(200).json(product);
   } catch (err) {
@@ -156,7 +149,6 @@ exports.updateProduct = async (req, res, next) => {
   try {
     const productId = req.params.id;
     const productObject = req.body;
-    // console.log(productId, productObject);
 
     if (
       !productObject.title ||
@@ -200,7 +192,6 @@ exports.updateProduct = async (req, res, next) => {
     if (!product) {
       return res.status(404).send(new Error("Product not found!"));
     }
-    console.log(`Product : ${product} well updated !`);
     res.status(200).json({ product });
   } catch (err) {
     console.error(err);

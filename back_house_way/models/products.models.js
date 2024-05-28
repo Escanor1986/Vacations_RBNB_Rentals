@@ -3,12 +3,6 @@ const { Schema } = mongoose;
 
 const productSchema = new Schema(
   {
-    // id: {
-    //   type: String,
-    //   required: true,
-    //   unique: true, // pour garantir que chaque produit a un identifiant unique
-    //   trim: true, // pour toutes les propriétés de chaîne de caractères pour supprimer les espaces inutiles au début et à la fin de la chaîne.
-    // },
     title: {
       type: String,
       required: true,
@@ -46,7 +40,7 @@ const productSchema = new Schema(
       },
     },
     rating: {
-      type: Number, //  Changement de rating en Number avec une valeur minimale de 0 et maximale de 5, car il s'agit d'une propriété numérique.
+      type: Number,
       required: true,
       min: 0,
       max: 5,
@@ -64,9 +58,14 @@ const productSchema = new Schema(
       type: [String],
       required: true,
     },
+    userId: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "UserId",
+      required: true,
+    },
   },
   {
-    timestamps: true, // ajoute des timestamps pour createdAt et updatedAt
+    timestamps: true,
   }
 );
 

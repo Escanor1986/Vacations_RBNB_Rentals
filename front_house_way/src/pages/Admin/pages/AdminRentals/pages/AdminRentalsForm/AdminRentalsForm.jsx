@@ -192,7 +192,7 @@ function AdminRentalsForm() {
         </div>
 
         <label className="label" htmlFor="hostRentalName">
-          Nom de l'hôte
+          Nom de lhôte
         </label>
         <div className="d-flex flex-column mb-20">
           <Field
@@ -209,7 +209,7 @@ function AdminRentalsForm() {
         </div>
 
         <label className="label" htmlFor="profilImageRentalHost">
-          Photo de l'hôte (Image URL Uniquement !)
+          Photo de lhôte (Image URL Uniquement !)
         </label>
         <div className="d-flex flex-column mb-20">
           <Field

@@ -1,11 +1,32 @@
-.active {
-  color: var(--primary);
-  transition: color 0.2s;
-}
-
 .list {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  height: 100px;
   margin-bottom: 20px;
+  padding: 0;
+  list-style-type: none;
+  background-color: #f5f5f5;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+
   a {
-    margin-right: 15px;
+    padding: 10px 20px;
+    margin-left: 1rem;
+    border-radius: 8px;
+    text-decoration: none;
+    color: #333;
+    font-weight: 500;
+    transition: all 0.3s ease;
+
+    &:hover {
+      background-color: #4285f4;
+      color: #fff;
+    }
+
+    &.active {
+      background-color: #4285f4;
+      color: #fff;
+    }
   }
 }

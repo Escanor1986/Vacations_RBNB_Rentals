@@ -9,7 +9,10 @@ const userIdSchema = schema(
       required: [true, "Un Email unique est requis"],
       unique: true,
     },
-    password: { type: String, required: [true, "Un mot de passe est requis"] },
+    password: {
+      type: String,
+      required: [true, "Un mot de passe est requis"],
+    },
   },
   {
     timestamps: true,

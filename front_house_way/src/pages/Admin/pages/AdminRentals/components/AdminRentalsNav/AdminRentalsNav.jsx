@@ -4,18 +4,22 @@ import styles from "./AdminRentalsNav.module.scss";
 function AdminRentalsNav() {
   return (
     <ul className={styles.list}>
-      <NavLink
-        className={({ isActive }) => (isActive ? styles.active : "")}
-        to="list"
-      >
-        Liste des locations
-      </NavLink>
-      <NavLink
-        className={({ isActive }) => (isActive ? styles.active : "")}
-        to="new"
-      >
-        Ajouter une location
-      </NavLink>
+      <li>
+        <NavLink
+          className={({ isActive }) => (isActive ? styles.active : "")}
+          to="list"
+        >
+          Liste des locations
+        </NavLink>
+      </li>
+      <li>
+        <NavLink
+          className={({ isActive }) => (isActive ? styles.active : "")}
+          to="new"
+        >
+          Ajouter une location
+        </NavLink>
+      </li>
     </ul>
   );
 }

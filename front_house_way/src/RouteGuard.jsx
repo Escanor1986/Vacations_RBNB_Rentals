@@ -1,22 +1,16 @@
-import { Route, Navigate } from "react-router-dom";
+/* eslint-disable react/prop-types */
+import { Navigate, Outlet } from "react-router-dom";
 
-const RouteGuard = ({ component: Component, requiresAuth, ...rest }) => {
-  function hasJWT() {
+const RouteGuard = ({ requiresAuth }) => {
+  const hasJWT = () => {
     return localStorage.getItem("token") ? true : false;
+  };
+
+  if (requiresAuth && !hasJWT()) {
+    return <Navigate to="/login" replace />;
   }
 
-  return (
-    <Route
-      {...rest}
-      element={
-        requiresAuth && !hasJWT() ? (
-          <Navigate to="/login" replace />
-        ) : (
-          <Component />
-        )
-      }
-    />
-  );
+  return <Outlet />;
 };
 
 export default RouteGuard;

@@ -24,9 +24,7 @@ exports.signup = async (req, res, next) => {
     const { error: emailError } = emailValidator.validate(email);
 
     if (passwordError || emailError) {
-      return res
-        .status(400)
-        .json({ message: "Email et/ou Password invalide !" });
+      return res.status(400).json({ message: "Email et/ou Password invalide !" });
     }
 
     const existingUser = await User.findOne({ email: email });
@@ -42,14 +40,14 @@ exports.signup = async (req, res, next) => {
     });
     await user.save();
     return res.status(201).json({
-      message:
-        "Nouvel utilisateur créé et enregistré dans la base de données avec succès !",
+      message: "Nouvel utilisateur créé et enregistré dans la base de données avec succès !",
     });
   } catch (error) {
-    console.log(error);
+    console.error(error);
     return res.status(500).json({ message: "Erreur interne du serveur" });
   }
 };
+
 
 // Concernant le LOGIN ********************************************************************************
 // ****************************************************************************************************
@@ -80,11 +78,13 @@ exports.login = async (req, res, next) => {
       return res.status(401).json({ error: "Mot de passe incorrect !" });
     }
 
+    const token = jwt.sign({ userId: user._id }, process.env.SECRET, {
+      expiresIn: "24h",
+    });
+
     res.status(200).json({
       userId: user._id,
-      token: jwt.sign({ userId: user._id }, process.env.SECRET, {
-        expiresIn: "24h",
-      }),
+      token: token,
     });
   } catch (error) {
     console.log(error);

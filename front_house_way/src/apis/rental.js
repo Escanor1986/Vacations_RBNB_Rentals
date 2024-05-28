@@ -2,15 +2,20 @@ const RENTAL_API = "http://localhost:4000/api/products";
 
 // getRentals est exporté vers hooks/useFetchRentals.js
 
+function getAuthToken() {
+  return localStorage.getItem("token");
+}
+
+
 // Fonction pour effectuer l'appel API de login
-export async function login(username, password) {
+export async function login(email, password) {
   try {
     const response = await fetch("http://localhost:4000/api/login", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({ username, password }),
+      body: JSON.stringify({ email, password }),
     });
 
     if (!response.ok) {
@@ -24,6 +29,7 @@ export async function login(username, password) {
     throw new Error("Failed to login: " + error.message);
   }
 }
+
 
 // Fonction pour effectuer l'appel API de signup
 export async function signup(email, password) {
@@ -46,10 +52,17 @@ export async function signup(email, password) {
   }
 }
 
+
+
 // fonction pour l'affichage de toutes les locations'
 export async function getRentals(queryParam) {
   const response = await fetch(
-    `${RENTAL_API}${queryParam ? `?${queryParam}` : ""}`
+    `${RENTAL_API}${queryParam ? `?${queryParam}` : ""}`,
+    {
+      headers: {
+        Authorization: `Bearer ${getAuthToken()}`,
+      },
+    }
   );
   if (response.ok) {
     const body = await response.json();
@@ -64,7 +77,13 @@ export async function getRentals(queryParam) {
 
 // fonction pour l'affichage d'une seule location
 export async function getRental(_id) {
-  const response = await fetch(`${RENTAL_API}/${_id}`);
+  const response = await fetch(`${RENTAL_API}/${_id}`,
+  {
+    headers: {
+      Authorization: `Bearer ${getAuthToken()}`,
+    },
+  }
+  );
   if (response.ok) {
     console.log(`Location : ${_id} chargée avec succès !`);
     return response.json();
@@ -109,6 +128,9 @@ export async function getPreviousRentalId(currentRentalId) {
 export async function deleteRental(_id) {
   const response = await fetch(`${RENTAL_API}/${_id}`, {
     method: "DELETE",
+    headers: {
+      Authorization: `Bearer ${getAuthToken()}`,
+    },
   });
   if (response.ok) {
     console.log(`Location supprimée : ${_id} !`);
@@ -125,6 +147,8 @@ export async function updateLikeRental(updatedRental) {
     method: "PATCH",
     headers: {
       "Content-Type": "application/json",
+      Authorization: `Bearer ${getAuthToken()}`,
+
     },
     body: JSON.stringify(restRental),
   });
@@ -143,6 +167,8 @@ export async function updateRental(updatedRental) {
     method: "PUT",
     headers: {
       "Content-Type": "application/json",
+      Authorization: `Bearer ${getAuthToken()}`,
+
     },
     body: JSON.stringify(restRental),
   });
@@ -161,6 +187,8 @@ export async function createRental(newRental) {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
+      Authorization: `Bearer ${getAuthToken()}`,
+
     },
     body: JSON.stringify(newRental),
   });
