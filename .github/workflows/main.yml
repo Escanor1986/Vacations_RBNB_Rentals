@@ -1,58 +1,68 @@
 name: CI Project - CD to GitHub Pages
-
-on:
+"on":
   push:
-    branches: [ main ]
-
-# Pour éviter des déploiements concurrents
-concurrency:
-  group: "pages"
-  cancel-in-progress: true
-
+    branches:
+      - main
+    tags-ignore:
+      - "*"
+defaults:
+  run:
+    working-directory: front_house_way
 permissions:
   contents: read
   pages: write
   id-token: write
-
-defaults:
-  run:
-    working-directory: front_house_way
-
 jobs:
-  build:
+  dependencies_and_test:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout
+      - name: Checkout Repository
         uses: actions/checkout@v4
-
+      - name: Running ls
+        run: ls -al
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: 20
-          cache: npm
-
-      - name: Install deps
-        run: npm ci
-
+          node-version: "20"
+      - name: Install Dependencies
+        run: npm install
+  build:
+    runs-on: ubuntu-latest
+    needs: dependencies_and_test
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+      - name: Install Dependencies
+        run: npm install
       - name: Build
         run: npm run build
-
-      # ➜ Prépare l’artefact Pages (utilise upload-artifact v4 sous le capot)
-      - name: Upload Pages artifact
-        uses: actions/upload-pages-artifact@v3
-        with:
-          path: front_house_way/dist
-
   deploy:
     needs: build
-    runs-on: ubuntu-latest
     environment:
       name: github-pages
-      url: ${{ steps.deploy.outputs.page_url }}
+      url: "${{ steps.deployment.outputs.page_url }}"
+    runs-on: ubuntu-latest
     steps:
-      - name: Configure Pages
-        uses: actions/configure-pages@v5
-
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+      - name: Install Dependencies
+        run: npm install
+      - name: Build
+        run: npm run build
+      - name: Setup Pages
+        uses: actions/configure-pages@v4
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v4
+        with:
+          path: ./front_house_way/dist/
       - name: Deploy to GitHub Pages
-        id: deploy
+        id: deployment
         uses: actions/deploy-pages@v4
