@@ -1,4 +1,4 @@
-const RENTAL_API = "https://house-way-934dcb8ce69d.herokuapp.com/api/products";
+const RENTAL_API = "https://housewaylion-4194c4829bc2.herokuapp.com/api/products";
 
 // getRentals est exporté vers hooks/useFetchRentals.js
 
@@ -10,7 +10,7 @@ function getAuthToken() {
 // Fonction pour effectuer l'appel API de login
 export async function login(email, password) {
   try {
-    const response = await fetch("https://house-way-934dcb8ce69d.herokuapp.com/api/login", {
+    const response = await fetch("https://housewaylion-4194c4829bc2.herokuapp.com/api/login", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -34,7 +34,7 @@ export async function login(email, password) {
 // Fonction pour effectuer l'appel API de signup
 export async function signup(email, password) {
   try {
-    const response = await fetch("https://house-way-934dcb8ce69d.herokuapp.com/api/signup", {
+    const response = await fetch("https://housewaylion-4194c4829bc2.herokuapp.com/api/signup", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
